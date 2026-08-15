@@ -12,6 +12,7 @@ Diagrama ou lista — o que for mais legível.
 | `User` | Do starter kit | tem muitos `QrCode` |
 | `QrCode` | `user_id`, `nome`, `slug` (único, imutável), `destino`, `activo`, timestamps | pertence a `User`, tem muitas `Scan` |
 | `Scan` | `qr_code_id`, `user_agent` (opcional), `created_at`, `data_local` | pertence a `QrCode` |
+| `ApiToken` | O `personal_access_tokens` do Sanctum, mais `ultimos_caracteres` e `revogado_em` | pertence a `User` |
 
 **Índices em `qr_codes`:** `slug` único (é por aí que o redirect público procura)
 e `(user_id, created_at)` para a listagem, que ordena do mais recente para o mais
@@ -47,6 +48,7 @@ depende dele: partilham o modelo `QrCode` e mais nada.
 |---|---|---|
 | `bacon/bacon-qr-code` | Codificar o URL curto em matriz e em SVG | Já vinha instalado com o 2FA do starter kit; não se acrescentou nada para isto |
 | `khanamiryan/qrcode-detector-decoder` (dev) | Descodificar o PNG gerado, nos testes | Um teste que confirma que o código é legível tem de o ler mesmo. Só em `require-dev`: nunca corre em produção |
+| `laravel/sanctum` | Tokens de API | O Fortify não emite tokens. As linhas que se poupam são de segurança — geração, hash, comparação em tempo constante. Ver `docs/DECISIONS.md` |
 
 ## Integrações externas
 Serviços, APIs, webhooks. O que acontece quando ficam indisponíveis.

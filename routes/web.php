@@ -19,6 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('codigos/{qrCode}/descarregar/{formato}', DescarregarQrCodeController::class)
         ->name('codigos.descarregar');
+
+    Route::livewire('tokens', 'pages::tokens.index')->name('tokens.index');
 });
 
 require __DIR__.'/settings.php';

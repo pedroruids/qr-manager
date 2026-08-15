@@ -193,3 +193,33 @@ servir: passa a ser preciso o fuso de cada um, e a conta volta a fazer-se à
 leitura. Fica registado como o limite conhecido desta decisão.
 
 ---
+
+## 2026-08-15 — Sanctum para os tokens de API, com revogação como estado
+
+**Contexto:** o issue dos tokens mandava avaliar o Sanctum contra o que já
+estava instalado. O Fortify, que cá está, não emite tokens de API — trata
+sessão, 2FA e passkeys. Restava instalar o Sanctum ou escrever um modelo
+próprio: uma tabela, um middleware e umas cem linhas.
+
+**Decisão:** `laravel/sanctum`.
+
+**Porquê:** as cem linhas que se poupam são de segurança — geração do segredo,
+hash, comparação em tempo constante, `last_used_at`. É código que se escreve
+depressa e se erra em silêncio, e o Sanctum já o tem revisto por muita gente.
+O preço é um package cujas partes que não queremos — scopes por token e o modo
+de cookies para SPA — ficam por usar; o `stateful` fica vazio de propósito.
+
+**Consequências:** o `personal_access_tokens` ganha duas colunas nossas.
+`ultimos_caracteres` guarda os quatro últimos caracteres do token em claro, sem
+os quais um utilizador com três tokens não distingue qual é qual — o hash não
+serve para isso e o token em claro não volta a existir. `revogado_em` faz da
+revogação um estado em vez de um apagamento: a linha fica, o utilizador vê que
+aquele token existiu e deixou de servir, e quem revogou por engano percebe pelo
+ecrã o que aconteceu. Como a linha fica, o Sanctum continuaria a aceitá-la —
+é o `authenticateAccessTokensUsing` no `AppServiceProvider` que a recusa, e é
+por aí que "revogado" passa a significar mesmo 401.
+
+O prefixo `qrm_` entra no token em claro: serve para o reconhecer à vista e para
+os varredores de segredos o apanharem num repositório público.
+
+---
