@@ -12,6 +12,11 @@ new #[Title('Criar código QR')] class extends Component
 
     public function criar(): void
     {
+        ['nome' => $this->nome, 'destino' => $this->destino] = QrCode::normalizar([
+            'nome' => $this->nome,
+            'destino' => $this->destino,
+        ]);
+
         $dados = $this->validate([
             'nome' => QrCode::regras()['nome'],
             'destino' => QrCode::regras()['destino'],

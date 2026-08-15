@@ -56,6 +56,28 @@ class QrCode extends Model
     }
 
     /**
+     * Apara o que vem de fora antes de validar.
+     *
+     * Um URL colado do browser traz espaços à volta com frequência, e sem isto
+     * a validação recusa-o com "falta o início do endereço" — uma mensagem que
+     * manda corrigir uma coisa que já está certa. O `TrimStrings` do HTTP não
+     * chega aqui: um pedido Livewire não passa por ele.
+     *
+     * @param  array<string, mixed>  $dados
+     * @return array<string, mixed>
+     */
+    public static function normalizar(array $dados): array
+    {
+        foreach (['nome', 'destino'] as $campo) {
+            if (is_string($dados[$campo] ?? null)) {
+                $dados[$campo] = trim($dados[$campo]);
+            }
+        }
+
+        return $dados;
+    }
+
+    /**
      * As mensagens andam com as regras, e não com o formulário: a aplicação
      * fala pt-PT, e a mensagem por omissão do Laravel — em inglês, a citar o
      * nome da coluna — não é dirigida a quem está a preencher isto.
