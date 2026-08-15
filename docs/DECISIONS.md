@@ -159,3 +159,37 @@ e 4096² não cabiam nos 128 MB de `memory_limit` de uma instalação por omiss�
 A 300 dpi, 2048 são 17 cm de lado.
 
 ---
+
+## 2026-08-15 — Guardar em UTC, cortar o dia em Lisboa
+
+**Contexto:** o gráfico de leituras por dia obriga a decidir onde acaba um dia.
+O Laravel guarda as datas no fuso da aplicação, que estava em `UTC`. Pôr a
+aplicação em `Europe/Lisbon` resolvia a agregação com um `DATE(created_at)`,
+mas passava a gravar hora local na base de dados.
+
+**Decisão:** o armazenamento fica em UTC. O corte do dia faz-se num fuso à
+parte, `app.fuso_do_utilizador`, com `Europe/Lisbon` por omissão.
+
+**Porquê:** hora local na base de dados é irrecuperável no fim de Outubro —
+01h30 acontece duas vezes e nada na coluna diz qual das duas foi. UTC não tem
+esse problema, e o preço é fazer a conversão à leitura. Mas a conversão tem de
+existir: quem lê o gráfico está em Portugal, e uma leitura das 23h30 de terça
+pertence a terça, não a quarta, que é o que um corte em UTC diria no Verão.
+
+**Consequências:** cada `Scan` passa a guardar também `data_local` — o dia civil
+a que a leitura pertence, decidido em PHP no momento da gravação. Não é dado
+novo sobre quem leu: é o mesmo instante do `created_at`, arrumado no dia certo.
+Com ele, a agregação é um `group by data_local` servido pelo índice
+`(qr_code_id, data_local)`, sem converter fusos dentro do SQL — que cada base de
+dados escreve à sua maneira e que nenhuma faz bem nos dias de 23 e de 25 horas.
+
+Alternativa descartada: calcular as fronteiras dos trinta dias em PHP e fazer
+uma soma condicional por dia. Funcionava e dava uma consulta só, mas obrigava a
+montar SQL por concatenação — que o Larastan recusa, e com razão, porque é o
+mesmo gesto que abre uma injecção quando o texto deixa de ser nosso.
+
+Se um dia houver utilizadores em fusos diferentes, a `data_local` deixa de
+servir: passa a ser preciso o fuso de cada um, e a conta volta a fazer-se à
+leitura. Fica registado como o limite conhecido desta decisão.
+
+---

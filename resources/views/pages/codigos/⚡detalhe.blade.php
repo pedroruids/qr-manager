@@ -2,6 +2,8 @@
 
 use App\Models\QrCode;
 use App\Services\GeradorQrCode;
+use App\Services\LeiturasPorDia;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -38,6 +40,40 @@ new #[Title('Código QR')] class extends Component
     public function urlCurto(): string
     {
         return route('redirect.publico', $this->qrCode->slug);
+    }
+
+    /**
+     * O total é de sempre; a série é dos últimos trinta dias — são perguntas
+     * diferentes: "quanto rendeu este código" e "ainda está a render".
+     *
+     * Devolve `null` se a consulta falhar. A avaria fica contida a este bloco:
+     * a pré-visualização e o download não dependem de leitura nenhuma, e quem
+     * veio buscar o ficheiro tem de o poder levar mesmo com as contas em baixo.
+     *
+     * @return array{total: int, serie: list<array{data: \Carbon\CarbonImmutable, valor: int}>, maximo: int}|null
+     */
+    #[Computed]
+    public function leituras(): ?array
+    {
+        try {
+            $total = $this->qrCode->scans()->count();
+
+            if ($total === 0) {
+                return ['total' => 0, 'serie' => [], 'maximo' => 0];
+            }
+
+            $serie = app(LeiturasPorDia::class)->paraQrCode($this->qrCode);
+
+            return [
+                'total' => $total,
+                'serie' => $serie,
+                'maximo' => max(array_column($serie, 'valor')),
+            ];
+        } catch (\Throwable $excepcao) {
+            report($excepcao);
+
+            return null;
+        }
     }
 }; ?>
 
@@ -121,6 +157,65 @@ new #[Title('Código QR')] class extends Component
                         </flux:text>
                     </dd>
                 </dl>
+            </div>
+
+            <div class="rounded-card border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+                <div class="flex items-baseline justify-between gap-4 border-b border-zinc-200 p-4 dark:border-zinc-800">
+                    <div class="flex items-baseline gap-2">
+                        <flux:heading>Leituras</flux:heading>
+
+                        @if ($this->leituras !== null)
+                            <span class="text-xl font-semibold tabular-nums {{ $this->leituras['total'] === 0 ? 'text-zinc-400 dark:text-zinc-500' : '' }}">
+                                {{ number_format($this->leituras['total'], 0, ',', ' ') }}
+                            </span>
+                        @endif
+                    </div>
+
+                    @if ($this->leituras !== null && $this->leituras['total'] > 0)
+                        <flux:text size="sm">
+                            últimos {{ LeiturasPorDia::DIAS }} dias · máx. {{ $this->leituras['maximo'] }}/dia
+                        </flux:text>
+                    @endif
+                </div>
+
+                @if ($this->leituras === null)
+                    {{--
+                        Avaria, não vazio. E contida a este bloco: o código
+                        continua a redireccionar e a contar, e o ficheiro
+                        continua a poder ser descarregado aqui ao lado.
+                    --}}
+                    <div class="flex items-start gap-2 p-4">
+                        <flux:icon.exclamation-triangle class="mt-0.5 size-4 shrink-0 text-zinc-500 dark:text-zinc-400" />
+
+                        <div>
+                            <flux:text>
+                                <span class="font-medium text-zinc-900 dark:text-zinc-100">Não foi possível carregar as leituras.</span>
+                                Nenhuma leitura se perdeu — falhou apenas a consulta. O código continua a
+                                redireccionar e a contar normalmente.
+                            </flux:text>
+
+                            <flux:button size="sm" class="mt-2.5" wire:click="$refresh">Tentar novamente</flux:button>
+                        </div>
+                    </div>
+                @elseif ($this->leituras['total'] === 0)
+                    {{--
+                        Vazio, não erro: o código foi criado e ainda ninguém o
+                        leu. O ecrã diz isso e diz desde quando conta.
+                    --}}
+                    <x-empty-state
+                        compacto
+                        valor="0"
+                        titulo="Ainda sem leituras"
+                        descricao="As leituras aparecem aqui assim que alguém apontar a câmara ao código. A contagem começa no momento em que o código foi criado."
+                    />
+                @else
+                    <div class="p-4">
+                        <x-bar-chart
+                            :serie="$this->leituras['serie']"
+                            rotulo="Leituras por dia nos últimos {{ LeiturasPorDia::DIAS }} dias"
+                        />
+                    </div>
+                @endif
             </div>
         </div>
 

@@ -69,6 +69,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Fuso horário do utilizador
+    |--------------------------------------------------------------------------
+    |
+    | O armazenamento continua em UTC — é o que sobrevive a mudanças de hora e
+    | a servidores noutro sítio. Este é o fuso em que se corta o dia quando se
+    | conta "leituras por dia": quem lê o gráfico está em Portugal, e uma
+    | leitura das 23h30 de terça pertence a terça, não a quarta.
+    |
+    */
+
+    'fuso_do_utilizador' => env('APP_FUSO_DO_UTILIZADOR', 'Europe/Lisbon'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Locale Configuration
     |--------------------------------------------------------------------------
     |
