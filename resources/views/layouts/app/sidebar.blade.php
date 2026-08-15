@@ -19,6 +19,10 @@
                     <flux:sidebar.item icon="qr-code" :href="route('codigos.index')" :current="request()->routeIs('codigos.*')" wire:navigate>
                         Códigos QR
                     </flux:sidebar.item>
+
+                    <flux:sidebar.item icon="key" :href="route('tokens.index')" :current="request()->routeIs('tokens.*')" wire:navigate>
+                        Tokens de API
+                    </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
