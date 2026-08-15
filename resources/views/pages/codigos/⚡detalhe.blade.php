@@ -86,6 +86,8 @@ new #[Title('Código QR')] class extends Component
                     </div>
 
                     <div class="flex shrink-0 items-center gap-2">
+                        <flux:button size="sm" :href="route('codigos.editar', $qrCode)" wire:navigate>Editar</flux:button>
+
                         {{-- O estado nunca é só cor: o ponto acompanha sempre o rótulo em texto. --}}
                         <flux:badge size="sm" color="zinc">
                             @if ($qrCode->activo)
