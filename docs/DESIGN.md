@@ -51,6 +51,11 @@ linha; e o rótulo em texto está sempre presente. Nunca só cor.
 **Valor ausente é informação, não erro.** Zero leituras escreve-se `0` em
 `zinc-400` — dito, mas sem puxar o olho. Não se esconde nem se substitui por "—".
 
+**Não há fundos de cor.** Faixas de aviso e blocos informativos dentro de um ecrã
+são neutros: `zinc-50`, ícone em `zinc-500`, texto em `zinc-700`. As cores de
+estado entram como ícone, ponto ou borda — nunca como superfície. Excepção única:
+`flux:callout` de erro, que leva borda `red-200` e mantém o fundo branco.
+
 ---
 
 ## Componentes base
@@ -131,7 +136,8 @@ nota ao décimo ecrã, quando corrigir já é refazer.
 3. A lista de componentes que já existem em `resources/views/components/`
 4. O issue do ecrã, com os critérios de aceitação
 
-A skill `/preparar-design <ecra>` monta este briefing pronto a colar.
+A skill `/preparar-design <ecra>` monta este briefing pronto a colar e guarda-o
+em `docs/briefings/<ecra>.md`.
 
 ### O que trazer de volta
 
@@ -201,3 +207,4 @@ Alterações ao sistema ficam aqui, com data e razão.
 | 2026-08-15 | Zero escreve-se `0` em `zinc-400` | Distinguir "ainda sem leituras" de erro sem inventar um símbolo |
 | 2026-08-15 | Badges de estado em `rounded-full`, única excepção ao raio do sistema | Convenção do `flux:badge`; contrariá-la custa mais do que vale |
 | 2026-08-15 | Ecrãs passam a ser desenhados em sessão separada, entregues como HTML com os quatro estados e a lista de componentes novos | Ver o ecrã a render fecha o ciclo de iteração; a entrega em código evita reintroduzir handoff |
+| 2026-08-15 | Sem fundos de cor: faixas de aviso são neutras (`zinc-50`, ícone `zinc-500`) | Saiu do mockup `detalhe-qr`, onde o aviso de código inactivo usava `amber-50`. Cor entra como ícone ou borda, não como superfície |
