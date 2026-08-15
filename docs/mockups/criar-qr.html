@@ -11,7 +11,7 @@
 <style type="text/tailwindcss">
   /* Copiado de resources/css/app.css — os mesmos tokens que a aplicação usa. */
   @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --color-brand-50:  #eef2ff;
     --color-brand-100: #e0e7ff;
@@ -37,6 +37,10 @@
     --color-zinc-800: #262626;
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
+
+    --color-accent: var(--color-brand-600);
+    --color-accent-content: var(--color-brand-600);
+    --color-accent-foreground: var(--color-white);
   }
 </style>
 </head>
@@ -68,7 +72,7 @@
     </nav>
     <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
       <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate">Pedro Ruivo</span>
+      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
@@ -181,7 +185,7 @@
                 Cancelar
               </button>
               <button type="submit" disabled aria-busy="true"
-                      class="inline-flex items-center gap-2 rounded-card bg-brand-600/70 px-3 py-1.5 text-sm font-medium text-white">
+                      class="inline-flex items-center gap-2 rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white">
                 <svg viewBox="0 0 24 24" class="size-4 animate-spin" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="9" class="opacity-25"/>
                   <path d="M21 12a9 9 0 0 0-9-9"/>
@@ -324,7 +328,7 @@
     </nav>
     <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
       <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate">Pedro Ruivo</span>
+      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
@@ -388,8 +392,9 @@
     <span class="font-mono">flux:breadcrumbs</span>.
   </p>
   <p class="mt-2 text-sm text-zinc-500">
-    Fora do sistema, para decidir: <span class="font-mono">bg-brand-600/70</span> no botão em espera
-    (opacidade, não token) — alternativa é <span class="font-mono">brand-400</span> sólido.
+    Nada fora do sistema. Botão a gravar: <span class="font-mono">bg-brand-600</span> sólido, com spinner e
+    <span class="font-mono">aria-busy</span> — está a trabalhar, não está desligado.
+    Regra registada em <span class="font-mono">docs/DESIGN.md</span>.
   </p>
 </div>
 

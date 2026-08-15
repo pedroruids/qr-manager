@@ -11,7 +11,7 @@
 <style type="text/tailwindcss">
   /* Copiado de resources/css/app.css — os mesmos tokens que a aplicação usa. */
   @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --color-brand-50:  #eef2ff;
     --color-brand-100: #e0e7ff;
@@ -37,6 +37,10 @@
     --color-zinc-800: #262626;
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
+
+    --color-accent: var(--color-brand-600);
+    --color-accent-content: var(--color-brand-600);
+    --color-accent-foreground: var(--color-white);
   }
 </style>
 </head>
@@ -75,15 +79,16 @@
     </nav>
     <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
       <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate">Pedro Ruivo</span>
+      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
   <main class="flex-1 min-w-0">
     <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 bg-white">
       <h1 class="text-base font-semibold">Códigos QR</h1>
-      <!-- componente: flux:button variant=primary — ação primária única do ecrã -->
-      <button class="rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
+      <!-- componente: flux:button (secundário neste estado) — a ação primária do
+           ecrã vazio é a do estado vazio; duas primárias seria repetir a mesma coisa -->
+      <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
         Criar QR
       </button>
     </header>
@@ -150,35 +155,35 @@
           </thead>
           <tbody class="divide-y divide-zinc-100 animate-pulse">
             <!-- 6 linhas de skeleton: larguras variadas para não parecer uma grelha morta -->
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-40 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-64 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-10 rounded bg-zinc-200"></div></td>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-40 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-64 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-10 rounded-card bg-zinc-200"></div></td>
                 <td class="px-4 py-3"><div class="h-5 w-16 rounded-full bg-zinc-200"></div></td></tr>
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-52 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-48 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-8 rounded bg-zinc-200"></div></td>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-52 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-48 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-8 rounded-card bg-zinc-200"></div></td>
                 <td class="px-4 py-3"><div class="h-5 w-16 rounded-full bg-zinc-200"></div></td></tr>
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-32 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-72 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-12 rounded bg-zinc-200"></div></td>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-32 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-72 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-12 rounded-card bg-zinc-200"></div></td>
                 <td class="px-4 py-3"><div class="h-5 w-16 rounded-full bg-zinc-200"></div></td></tr>
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-44 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-56 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-9 rounded bg-zinc-200"></div></td>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-44 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-56 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-9 rounded-card bg-zinc-200"></div></td>
                 <td class="px-4 py-3"><div class="h-5 w-16 rounded-full bg-zinc-200"></div></td></tr>
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-36 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-60 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-11 rounded bg-zinc-200"></div></td>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-36 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-60 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-11 rounded-card bg-zinc-200"></div></td>
                 <td class="px-4 py-3"><div class="h-5 w-16 rounded-full bg-zinc-200"></div></td></tr>
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-48 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-40 rounded bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-8 rounded bg-zinc-200"></div></td>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-48 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-40 rounded-card bg-zinc-200"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-8 rounded-card bg-zinc-200"></div></td>
                 <td class="px-4 py-3"><div class="h-5 w-16 rounded-full bg-zinc-200"></div></td></tr>
           </tbody>
         </table>
@@ -262,7 +267,7 @@
     </nav>
     <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
       <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate">Pedro Ruivo</span>
+      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
@@ -280,7 +285,8 @@
     <div class="p-6">
       <!-- componente: flux:table -->
       <div class="overflow-x-auto rounded-card border border-zinc-200 bg-white">
-        <table class="w-full min-w-[840px] text-sm">
+        <table class="w-full table-fixed text-sm">
+          <colgroup><col class="w-[26%]"><col class="w-[16%]"><col class="w-[34%]"><col class="w-[12%]"><col class="w-[12%]"></colgroup>
           <thead class="border-b border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500">
             <tr>
               <th scope="col" class="px-4 py-2.5 text-left font-medium">Nome</th>
@@ -293,21 +299,21 @@
           <tbody class="divide-y divide-zinc-100">
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Flyer Setembro — regresso às aulas</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Flyer Setembro — regresso às aulas">Flyer Setembro — regresso às aulas</a>
               </td>
               <td class="px-4 py-2.5">
                 <!-- componente novo: x-copy-field (slug em mono, botão de copiar) -->
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">abc123</span>
-                  <button aria-label="Copiar o endereço de Flyer Setembro" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Flyer Setembro" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
+              <td class="px-4 py-2.5">
                 <span class="block truncate text-zinc-600" title="https://loja.exemplo.pt/campanhas/setembro-2026/regresso-as-aulas?utm_source=flyer&amp;utm_medium=qr">loja.exemplo.pt/campanhas/setembro-2026/regresso-as-aulas?utm_source=flyer</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">1 284</td>
@@ -319,21 +325,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)">Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">k7m2qp</span>
-                  <button aria-label="Copiar o endereço de Cartaz A2 Feira do Livro" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Cartaz A2 Feira do Livro" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/eventos/feira-do-livro</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/eventos/feira-do-livro">loja.exemplo.pt/eventos/feira-do-livro</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">12 847</td>
               <td class="px-4 py-2.5">
@@ -344,21 +350,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Rótulo garrafa 33 cl</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Rótulo garrafa 33 cl">Rótulo garrafa 33 cl</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">t4wz8n</span>
-                  <button aria-label="Copiar o endereço de Rótulo garrafa 33 cl" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Rótulo garrafa 33 cl" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/produtos/agua-das-pedras</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/produtos/agua-das-pedras">loja.exemplo.pt/produtos/agua-das-pedras</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">3 902</td>
               <td class="px-4 py-2.5">
@@ -369,21 +375,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Menu esplanada — Verão</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Menu esplanada — Verão">Menu esplanada — Verão</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">9hd3vk</span>
-                  <button aria-label="Copiar o endereço de Menu esplanada Verão" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Menu esplanada Verão" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/menu/verao-2026</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/menu/verao-2026">loja.exemplo.pt/menu/verao-2026</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">867</td>
               <td class="px-4 py-2.5">
@@ -394,21 +400,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Autocolante montra — Black Friday</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Autocolante montra — Black Friday">Autocolante montra — Black Friday</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">bf26xq</span>
-                  <button aria-label="Copiar o endereço de Autocolante montra Black Friday" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Autocolante montra Black Friday" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/black-friday</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/black-friday">loja.exemplo.pt/black-friday</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums text-zinc-400">0</td>
               <td class="px-4 py-2.5">
@@ -419,21 +425,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Postal caixa de encomenda</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Postal caixa de encomenda">Postal caixa de encomenda</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">p2rt5c</span>
-                  <button aria-label="Copiar o endereço de Postal caixa de encomenda" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Postal caixa de encomenda" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/avaliar-encomenda</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/avaliar-encomenda">loja.exemplo.pt/avaliar-encomenda</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">459</td>
               <td class="px-4 py-2.5">
@@ -444,21 +450,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Roll-up stand — Web Summit</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Roll-up stand — Web Summit">Roll-up stand — Web Summit</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">ws4k1m</span>
-                  <button aria-label="Copiar o endereço de Roll-up stand Web Summit" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Roll-up stand Web Summit" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/parcerias?utm_source=websummit&amp;utm_campaign=stand-c14</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/parcerias?utm_source=websummit&amp;utm_campaign=stand-c14">loja.exemplo.pt/parcerias?utm_source=websummit&amp;utm_campaign=stand-c14</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">2 015</td>
               <td class="px-4 py-2.5">
@@ -469,21 +475,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Placa entrada da loja do Porto</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Placa entrada da loja do Porto">Placa entrada da loja do Porto</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">prt900</span>
-                  <button aria-label="Copiar o endereço de Placa entrada da loja do Porto" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Placa entrada da loja do Porto" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/lojas/porto</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/lojas/porto">loja.exemplo.pt/lojas/porto</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">74</td>
               <td class="px-4 py-2.5">
@@ -494,21 +500,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Guia de instalação — impressão em caixa</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Guia de instalação — impressão em caixa">Guia de instalação — impressão em caixa</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">g8n6ty</span>
-                  <button aria-label="Copiar o endereço de Guia de instalação" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Guia de instalação" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">suporte.exemplo.pt/instalacao/v3</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="suporte.exemplo.pt/instalacao/v3">suporte.exemplo.pt/instalacao/v3</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums font-medium">198</td>
               <td class="px-4 py-2.5">
@@ -519,21 +525,21 @@
             </tr>
 
             <tr class="hover:bg-zinc-50">
-              <td class="px-4 py-2.5 max-w-[220px]">
-                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700">Cartão de visita comercial</a>
+              <td class="px-4 py-2.5">
+                <a href="#" class="block truncate font-medium text-zinc-900 hover:text-brand-700" title="Cartão de visita comercial">Cartão de visita comercial</a>
               </td>
               <td class="px-4 py-2.5">
                 <div class="flex items-center gap-1.5">
                   <span class="font-mono text-zinc-700">cv77aa</span>
-                  <button aria-label="Copiar o endereço de Cartão de visita comercial" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                  <button aria-label="Copiar o endereço de Cartão de visita comercial" class="rounded-card p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                       <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                     </svg>
                   </button>
                 </div>
               </td>
-              <td class="px-4 py-2.5 max-w-[300px]">
-                <span class="block truncate text-zinc-600">loja.exemplo.pt/contactos</span>
+              <td class="px-4 py-2.5">
+                <span class="block truncate text-zinc-600" title="loja.exemplo.pt/contactos">loja.exemplo.pt/contactos</span>
               </td>
               <td class="px-4 py-2.5 text-right tabular-nums text-zinc-400">0</td>
               <td class="px-4 py-2.5">
