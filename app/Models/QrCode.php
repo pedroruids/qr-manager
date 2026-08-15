@@ -45,6 +45,15 @@ class QrCode extends Model
         ];
     }
 
+    /**
+     * As rotas da aplicação identificam um QR pelo slug. É único, imutável e já
+     * é público — não há nada a ganhar em expor também o id sequencial.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     protected static function booted(): void
     {
         static::creating(function (QrCode $qrCode): void {
