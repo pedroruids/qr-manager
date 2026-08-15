@@ -26,6 +26,12 @@ Apagar um `QrCode` apaga as suas leituras: a chave estrangeira tem
 ## Módulos e fronteiras
 Como o código está organizado, e o que não deve depender de quê.
 
+**O redirect público é uma ilha.** `routes/publico.php` →
+`RedirectPublicoController` → `errors/codigo-inactivo.blade.php`. Não passa pelo
+grupo `web`, não abre sessão, não conhece o utilizador autenticado e não usa o
+layout nem os componentes Flux da aplicação. A aplicação, do lado de dentro, não
+depende dele: partilham o modelo `QrCode` e mais nada.
+
 ## Packages escolhidos
 | Package | Para quê | Porque este |
 |---|---|---|
@@ -48,6 +54,14 @@ Se esta secção estiver vazia, ótimo.
   redirect num erro para quem lê o código na rua.
 - **Alfabeto do slug sem `0`, `O`, `1`, `l` e `i`** — quem lê um slug de um flyer
   lê-o carácter a carácter, e estes confundem-se.
+- **Rotas fora do `bootstrap/app.php` habitual** — `routes/publico.php` é
+  registado no `then` do `withRouting`, sem middleware, para que o apanha-tudo
+  `{slug}` fique depois de todas as outras rotas e não abra sessão. Ver
+  `docs/DECISIONS.md`.
+- **A página do redirect falhado não usa Flux nem o layout da aplicação** — é
+  HTML e Tailwind directos em `resources/views/errors/codigo-inactivo.blade.php`.
+  Quem a vê é um anónimo com o telemóvel na mão, sem sessão e sem navegação onde
+  entrar.
 - **`Scan` só tem `created_at`** (`UPDATED_AT = null`) — uma leitura é um facto
   acontecido, grava-se uma vez e nunca muda. Uma coluna `updated_at` seria uma
   coluna que ninguém escreve e que sugere uma edição que não existe.
