@@ -28,7 +28,13 @@ class GeradorQrCode
 
     public const TAMANHO_PNG_MINIMO = 128;
 
-    public const TAMANHO_PNG_MAXIMO = 4096;
+    /**
+     * Tecto conservador: uma imagem em cor verdadeira ocupa 4 bytes por pixel
+     * durante a geração, e 4096² passavam os 128 MB de `memory_limit` de uma
+     * instalação por omissão. A 300 dpi, 2048 pixéis dão um código de 17 cm de
+     * lado — muito acima do que um flyer leva.
+     */
+    public const TAMANHO_PNG_MAXIMO = 2048;
 
     public const TAMANHO_PNG_OMISSAO = 512;
 

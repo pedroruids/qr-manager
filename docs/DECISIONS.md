@@ -126,8 +126,8 @@ mantém o código numa versão baixa e com módulos grandes, que é o que faz um
 leitor barato ler à primeira. H custaria mais densidade sem ganho prático a esta
 dimensão de conteúdo, e M já falha em códigos com uma dobra a meio.
 
-**Consequências:** o nível está numa constante do `GeradorQrCode`, não numa
-opção de interface. Mudá-lo depois de haver material impresso não invalida nada
+**Consequências:** o nível está fixado no `GeradorQrCode`, não numa opção de
+interface. Mudá-lo depois de haver material impresso não invalida nada
 — cada código continua a ler-se — mas passa a haver duas gerações de ficheiros
 com robustez diferente.
 
@@ -153,6 +153,9 @@ leitor barato falha.
 **Consequências:** mais fácil — sem extensão nativa nova, e o PNG sai
 exactamente no tamanho pedido com módulos nítidos. Mais difícil — ~40 linhas de
 desenho nossas em vez de uma chamada a uma biblioteca, e qualquer variação
-futura (cores, molduras) tem de ser escrita à mão.
+futura (cores, molduras) tem de ser escrita à mão. O tecto do tamanho é 2048
+pixéis: em cor verdadeira a imagem ocupa 4 bytes por pixel enquanto é desenhada,
+e 4096² não cabiam nos 128 MB de `memory_limit` de uma instalação por omissão.
+A 300 dpi, 2048 são 17 cm de lado.
 
 ---
