@@ -89,6 +89,14 @@ componente. Se aparece num, é composição.
 6. **Texto que pode ser longo trunca numa linha**, com o valor completo em `title`.
    As larguras saem da grelha da tabela (`table-fixed` com percentagens), não de
    valores soltos em pixéis.
+7. **Botão a trabalhar e botão desligado não são a mesma coisa.**
+   A trabalhar: `bg-brand-600` sólido, com spinner e `aria-busy` — está a fazer
+   algo. Desligado: `bg-zinc-200` com texto `zinc-500` — não faz nada, e lê-se
+   como neutro. **Nunca a cor de marca com opacidade:** marca esbatida é a mesma
+   cor a dizer duas coisas diferentes.
+8. **Uma ação por ecrã, não uma por bloco.** Num estado vazio, a ação primária é
+   a do estado vazio, e a do cabeçalho passa a secundária. Duas primárias com o
+   mesmo texto é a mesma decisão pedida duas vezes.
 
 ---
 
@@ -208,3 +216,5 @@ Alterações ao sistema ficam aqui, com data e razão.
 | 2026-08-15 | Badges de estado em `rounded-full`, única excepção ao raio do sistema | Convenção do `flux:badge`; contrariá-la custa mais do que vale |
 | 2026-08-15 | Ecrãs passam a ser desenhados em sessão separada, entregues como HTML com os quatro estados e a lista de componentes novos | Ver o ecrã a render fecha o ciclo de iteração; a entrega em código evita reintroduzir handoff |
 | 2026-08-15 | Sem fundos de cor: faixas de aviso são neutras (`zinc-50`, ícone `zinc-500`) | Saiu do mockup `detalhe-qr`, onde o aviso de código inactivo usava `amber-50`. Cor entra como ícone ou borda, não como superfície |
+| 2026-08-15 | Botão a trabalhar vs. desligado: `brand-600` sólido com spinner vs. `zinc-200`/`zinc-500`. Nunca marca com opacidade | Saiu da validação dos seis mockups, que tinham `brand-600/70` e `/40` — dois valores para a mesma ideia, e marca esbatida a significar duas coisas |
+| 2026-08-15 | Em estado vazio, a ação do cabeçalho passa a secundária | Duas primárias com o mesmo texto no mesmo ecrã (lista e tokens) é pedir a mesma decisão duas vezes |
