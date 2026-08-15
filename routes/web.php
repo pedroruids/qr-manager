@@ -15,6 +15,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::livewire('codigos/{qrCode}', 'pages::codigos.detalhe')->name('codigos.detalhe');
 
+    Route::livewire('codigos/{qrCode}/editar', 'pages::codigos.editar')->name('codigos.editar');
+
     Route::get('codigos/{qrCode}/descarregar/{formato}', DescarregarQrCodeController::class)
         ->name('codigos.descarregar');
 });
