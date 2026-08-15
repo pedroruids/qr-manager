@@ -407,10 +407,11 @@
               </div>
             </div>
 
-            <!-- Aviso de consequência: um QR inactivo é papel morto na rua -->
-            <div class="border-b border-zinc-200 bg-amber-50 px-4 py-2.5">
+            <!-- Aviso de consequência: um QR inactivo é papel morto na rua.
+                 Faixa neutra — o sistema não tem fundos de cor. -->
+            <div class="border-b border-zinc-200 bg-zinc-50 px-4 py-2.5">
               <p class="flex items-start gap-2 text-xs text-zinc-700">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-4 shrink-0 text-amber-600" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-4 shrink-0 text-zinc-500" aria-hidden="true">
                   <path d="M12 4 3 20h18L12 4Z"/><path d="M12 10v4M12 17h.01"/>
                 </svg>
                 <span>Este código está inactivo: quem o ler vê uma página a dizer que já não está disponível.</span>
@@ -517,8 +518,9 @@
     <span class="font-mono">flux:breadcrumbs</span>.
   </p>
   <p class="mt-2 text-sm text-zinc-500">
-    Fora do sistema, para decidir: a faixa de aviso do código inactivo usa <span class="font-mono">bg-amber-50</span>,
-    um fundo de cor que o <span class="font-mono">DESIGN.md</span> ainda não prevê.
+    Nada fora do sistema. A faixa de aviso do código inactivo é neutra
+    (<span class="font-mono">bg-zinc-50</span> com ícone e texto) — decidido a 15-08-2026,
+    ver o registo de alterações em <span class="font-mono">docs/DESIGN.md</span>.
   </p>
 </div>
 
