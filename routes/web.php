@@ -8,6 +8,8 @@ Route::view('/', 'welcome')->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
+    Route::livewire('codigos', 'pages::codigos.index')->name('codigos.index');
+
     // Antes de codigos/{qrCode}, senão "criar" era lido como um slug.
     Route::livewire('codigos/criar', 'pages::codigos.criar')->name('codigos.criar');
 

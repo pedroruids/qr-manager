@@ -69,7 +69,7 @@ new #[Title('Criar código QR')] class extends Component
                 />
 
                 <div class="flex items-center justify-end gap-2 border-t border-zinc-200 pt-5 dark:border-zinc-800">
-                    <flux:button size="sm" :href="route('dashboard')" wire:navigate>Cancelar</flux:button>
+                    <flux:button size="sm" :href="route('codigos.index')" wire:navigate>Cancelar</flux:button>
 
                     <flux:button type="submit" variant="primary" size="sm">Criar QR</flux:button>
                 </div>
