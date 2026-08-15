@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup — Detalhe do QR</title>
+
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<style type="text/tailwindcss">
+  /* Copiado de resources/css/app.css — os mesmos tokens que a aplicação usa. */
+  @theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-50:  #eef2ff;
+    --color-brand-100: #e0e7ff;
+    --color-brand-200: #c7d2fe;
+    --color-brand-300: #a5b4fc;
+    --color-brand-400: #818cf8;
+    --color-brand-500: #6366f1;
+    --color-brand-600: #4f46e5;
+    --color-brand-700: #4338ca;
+    --color-brand-800: #3730a3;
+    --color-brand-900: #312e81;
+
+    --radius-card: 0.5rem;
+
+    --color-zinc-50:  #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+  }
+</style>
+</head>
+
+<body class="bg-zinc-50 text-zinc-900 font-sans antialiased">
+
+<!-- ========================================================================
+     As barras escuras "ESTADO N" não fazem parte do ecrã.
+     O código QR aqui é REAL, gerado com bacon/bacon-qr-code a partir de
+     https://qr.exemplo.pt/abc123 — a densidade de módulos é a verdadeira.
+     Cobre os issues #9 (pré-visualização e download) e #11 (leituras por dia).
+     ===================================================================== -->
+
+<!-- ====================================================================
+     ESTADO 1 — VAZIO (QR acabado de criar, ainda sem leituras)
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 1 — VAZIO · código criado agora, zero leituras
+</div>
+
+<div class="flex min-h-[620px]">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+      <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
+      <span class="text-sm font-semibold">qr-manager</span>
+    </div>
+    <nav class="flex flex-col gap-0.5 p-2 text-sm">
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium text-zinc-900">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 hover:bg-zinc-50">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 hover:bg-zinc-50">Definições</a>
+    </nav>
+    <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
+      <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
+      <span class="text-sm text-zinc-600 truncate">Pedro Ruivo</span>
+    </div>
+  </aside>
+
+  <main class="flex-1 min-w-0">
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
+      <a href="#" class="text-zinc-500 hover:text-zinc-900">Códigos QR</a>
+      <span class="text-zinc-300" aria-hidden="true">/</span>
+      <span class="font-semibold truncate">Autocolante montra — Black Friday</span>
+    </header>
+
+    <div class="p-6">
+      <div class="grid gap-6 lg:grid-cols-[240px_1fr]">
+
+        <!-- Coluna esquerda: o código e o que se leva daqui -->
+        <div class="grid gap-3">
+          <!-- componente novo: x-qr-preview · o QR é sempre quadrado e sem raio -->
+          <div class="border border-zinc-200 bg-white p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="240" height="240" viewBox="0 0 240 240" class="w-full h-auto" role="img" aria-label="Código QR de Autocolante montra Black Friday"><rect x="0" y="0" width="240" height="240" fill="#ffffff"/><g transform="scale(8.889)"><g transform="translate(1,1)"><path fill-rule="evenodd" d="M8 0L8 4L9 4L9 5L8 5L8 7L9 7L9 6L10 6L10 9L11 9L11 10L9 10L9 9L7 9L7 8L4 8L4 9L3 9L3 10L0 10L0 11L1 11L1 12L0 12L0 14L4 14L4 15L2 15L2 16L0 16L0 17L5 17L5 16L6 16L6 17L8 17L8 18L9 18L9 17L10 17L10 20L9 20L9 19L8 19L8 21L9 21L9 23L8 23L8 25L11 25L11 24L10 24L10 20L11 20L11 19L14 19L14 20L15 20L15 16L16 16L16 21L17 21L17 23L19 23L19 24L17 24L17 25L19 25L19 24L22 24L22 25L25 25L25 24L24 24L24 22L25 22L25 21L24 21L24 19L21 19L21 17L23 17L23 16L24 16L24 15L23 15L23 14L24 14L24 13L25 13L25 12L24 12L24 11L23 11L23 10L24 10L24 9L25 9L25 8L21 8L21 9L20 9L20 8L19 8L19 9L20 9L20 10L19 10L19 11L18 11L18 9L17 9L17 6L16 6L16 7L15 7L15 6L14 6L14 7L15 7L15 8L16 8L16 9L15 9L15 14L14 14L14 13L10 13L10 15L11 15L11 16L9 16L9 17L8 17L8 15L7 15L7 14L6 14L6 15L5 15L5 13L7 13L7 12L5 12L5 13L1 13L1 12L2 12L2 11L3 11L3 10L4 10L4 11L5 11L5 9L7 9L7 10L6 10L6 11L9 11L9 12L10 12L10 11L12 11L12 10L14 10L14 9L11 9L11 3L10 3L10 2L9 2L9 0ZM14 0L14 1L17 1L17 0ZM11 1L11 2L12 2L12 3L13 3L13 4L12 4L12 5L13 5L13 4L14 4L14 5L17 5L17 3L16 3L16 2L14 2L14 3L13 3L13 1ZM14 3L14 4L16 4L16 3ZM12 6L12 7L13 7L13 6ZM0 8L0 9L2 9L2 8ZM22 9L22 10L23 10L23 9ZM16 10L16 13L17 13L17 14L16 14L16 16L17 16L17 15L18 15L18 14L20 14L20 13L21 13L21 14L23 14L23 13L21 13L21 12L22 12L22 11L21 11L21 10L20 10L20 11L19 11L19 13L18 13L18 12L17 12L17 10ZM13 14L13 15L12 15L12 16L11 16L11 17L13 17L13 18L14 18L14 16L15 16L15 15L14 15L14 14ZM4 15L4 16L5 16L5 15ZM6 15L6 16L7 16L7 15ZM21 15L21 16L22 16L22 15ZM17 17L17 20L20 20L20 17ZM18 18L18 19L19 19L19 18ZM12 20L12 21L11 21L11 23L12 23L12 21L13 21L13 22L15 22L15 23L14 23L14 24L15 24L15 25L16 25L16 24L15 24L15 23L16 23L16 22L15 22L15 21L13 21L13 20ZM20 21L20 22L19 22L19 23L21 23L21 22L22 22L22 23L23 23L23 22L22 22L22 21ZM12 24L12 25L13 25L13 24ZM0 0L0 7L7 7L7 0ZM1 1L1 6L6 6L6 1ZM2 2L2 5L5 5L5 2ZM25 0L18 0L18 7L25 7ZM24 1L19 1L19 6L24 6ZM23 2L20 2L20 5L23 5ZM0 25L7 25L7 18L0 18ZM1 24L6 24L6 19L1 19ZM2 23L5 23L5 20L2 20Z" fill="#000000"/></g></g></svg>
+          </div>
+
+          <div class="grid gap-2">
+            <div class="flex gap-2">
+              <button class="flex-1 rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">PNG</button>
+              <button class="flex-1 rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">SVG</button>
+            </div>
+            <!-- componente: flux:select — o tamanho só afecta o PNG -->
+            <label class="grid gap-1 text-xs text-zinc-500">
+              Tamanho do PNG
+              <select class="rounded-card border border-zinc-300 bg-white px-2 py-1.5 text-sm text-zinc-900">
+                <option>512 px — ecrã</option>
+                <option selected>1024 px — flyer</option>
+                <option>2048 px — cartaz</option>
+              </select>
+            </label>
+            <p class="text-xs text-zinc-500">Para gráfica, peça sempre o SVG: não perde definição em nenhum tamanho.</p>
+          </div>
+        </div>
+
+        <!-- Coluna direita: dados e leituras -->
+        <div class="grid content-start gap-4 min-w-0">
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="flex items-start justify-between gap-4 border-b border-zinc-200 p-4">
+              <div class="min-w-0">
+                <h1 class="truncate text-base font-semibold">Autocolante montra — Black Friday</h1>
+                <p class="mt-0.5 text-xs text-zinc-500">Criado hoje às 14:02</p>
+              </div>
+              <div class="flex shrink-0 items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700">
+                  <span class="size-1.5 rounded-full bg-emerald-600"></span>Activo
+                </span>
+                <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Editar</button>
+              </div>
+            </div>
+
+            <dl class="grid gap-3 p-4 text-sm sm:grid-cols-[140px_1fr]">
+              <dt class="text-zinc-500">Endereço do código</dt>
+              <dd class="min-w-0">
+                <!-- componente novo: x-copy-field -->
+                <div class="flex items-center gap-1.5">
+                  <span class="truncate font-mono text-zinc-900">qr.exemplo.pt/bf26xq</span>
+                  <button aria-label="Copiar o endereço do código" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
+                      <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
+                    </svg>
+                  </button>
+                </div>
+                <p class="mt-0.5 text-xs text-zinc-500">É isto que está codificado no código impresso. Nunca muda.</p>
+              </dd>
+
+              <dt class="text-zinc-500">Destino actual</dt>
+              <dd class="min-w-0">
+                <a href="#" class="block truncate text-zinc-900 hover:text-brand-700">https://loja.exemplo.pt/black-friday</a>
+                <p class="mt-0.5 text-xs text-zinc-500">Pode ser alterado a qualquer momento, sem reimprimir o código.</p>
+              </dd>
+            </dl>
+          </div>
+
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="flex items-baseline justify-between gap-4 border-b border-zinc-200 p-4">
+              <h2 class="text-sm font-semibold">Leituras</h2>
+              <span class="text-xs text-zinc-500">últimos 30 dias</span>
+            </div>
+            <!-- componente novo: x-empty-state (variante compacta, dentro de um cartão) -->
+            <div class="px-4 py-10 text-center">
+              <p class="text-2xl font-semibold tabular-nums text-zinc-400">0</p>
+              <p class="mt-1 text-sm font-medium text-zinc-900">Ainda sem leituras</p>
+              <p class="mx-auto mt-1 max-w-sm text-sm text-zinc-500">
+                As leituras aparecem aqui assim que alguém apontar a câmara ao código.
+                A contagem começa no momento em que o código foi criado.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ====================================================================
+     ESTADO 2 — A CARREGAR
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 2 — A CARREGAR · skeleton com a forma das duas colunas
+</div>
+
+<div class="flex min-h-[560px]">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+      <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
+      <span class="text-sm font-semibold">qr-manager</span>
+    </div>
+    <nav class="flex flex-col gap-0.5 p-2 text-sm">
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 min-w-0">
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
+      <a href="#" class="text-zinc-500">Códigos QR</a>
+      <span class="text-zinc-300" aria-hidden="true">/</span>
+      <span class="h-3.5 w-40 rounded bg-zinc-200 animate-pulse"></span>
+    </header>
+
+    <div class="p-6">
+      <div class="grid gap-6 lg:grid-cols-[240px_1fr] animate-pulse">
+        <div class="grid gap-3">
+          <div class="aspect-square w-full border border-zinc-200 bg-zinc-100"></div>
+          <div class="flex gap-2">
+            <div class="h-8 flex-1 rounded-card bg-zinc-200"></div>
+            <div class="h-8 flex-1 rounded-card bg-zinc-200"></div>
+          </div>
+          <div class="h-8 w-full rounded-card bg-zinc-100"></div>
+        </div>
+
+        <div class="grid content-start gap-4">
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="flex items-center justify-between border-b border-zinc-200 p-4">
+              <div class="h-4 w-56 rounded bg-zinc-200"></div>
+              <div class="h-7 w-20 rounded-card bg-zinc-200"></div>
+            </div>
+            <div class="grid gap-3 p-4">
+              <div class="h-3.5 w-72 rounded bg-zinc-200"></div>
+              <div class="h-3.5 w-96 max-w-full rounded bg-zinc-200"></div>
+            </div>
+          </div>
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="border-b border-zinc-200 p-4"><div class="h-4 w-24 rounded bg-zinc-200"></div></div>
+            <div class="flex h-40 items-end gap-1 p-4">
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:35%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:55%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:25%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:70%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:45%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:60%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:30%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:50%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:80%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:40%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:65%"></div>
+              <div class="flex-1 rounded-t bg-zinc-200" style="height:20%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sr-only" role="status">A carregar o código QR e as leituras.</p>
+    </div>
+  </main>
+</div>
+
+<!-- ====================================================================
+     ESTADO 3 — ERRO (parcial: o código está lá, as leituras é que falharam)
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 3 — ERRO · falha parcial: o código e o download funcionam, as leituras não carregaram
+</div>
+
+<div class="flex min-h-[620px]">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+      <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
+      <span class="text-sm font-semibold">qr-manager</span>
+    </div>
+    <nav class="flex flex-col gap-0.5 p-2 text-sm">
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+    </nav>
+  </aside>
+
+  <main class="flex-1 min-w-0">
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
+      <a href="#" class="text-zinc-500 hover:text-zinc-900">Códigos QR</a>
+      <span class="text-zinc-300" aria-hidden="true">/</span>
+      <span class="font-semibold truncate">Flyer Setembro — regresso às aulas</span>
+    </header>
+
+    <div class="p-6">
+      <div class="grid gap-6 lg:grid-cols-[240px_1fr]">
+        <div class="grid gap-3">
+          <div class="border border-zinc-200 bg-white p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="240" height="240" viewBox="0 0 240 240" class="w-full h-auto" role="img" aria-label="Código QR de Flyer Setembro"><rect x="0" y="0" width="240" height="240" fill="#ffffff"/><g transform="scale(8.889)"><g transform="translate(1,1)"><path fill-rule="evenodd" d="M8 0L8 4L9 4L9 5L8 5L8 7L9 7L9 6L10 6L10 9L11 9L11 10L9 10L9 9L7 9L7 8L4 8L4 9L3 9L3 10L0 10L0 11L1 11L1 12L0 12L0 14L4 14L4 15L2 15L2 16L0 16L0 17L5 17L5 16L6 16L6 17L8 17L8 18L9 18L9 17L10 17L10 20L9 20L9 19L8 19L8 21L9 21L9 23L8 23L8 25L11 25L11 24L10 24L10 20L11 20L11 19L14 19L14 20L15 20L15 16L16 16L16 21L17 21L17 23L19 23L19 24L17 24L17 25L19 25L19 24L22 24L22 25L25 25L25 24L24 24L24 22L25 22L25 21L24 21L24 19L21 19L21 17L23 17L23 16L24 16L24 15L23 15L23 14L24 14L24 13L25 13L25 12L24 12L24 11L23 11L23 10L24 10L24 9L25 9L25 8L21 8L21 9L20 9L20 8L19 8L19 9L20 9L20 10L19 10L19 11L18 11L18 9L17 9L17 6L16 6L16 7L15 7L15 6L14 6L14 7L15 7L15 8L16 8L16 9L15 9L15 14L14 14L14 13L10 13L10 15L11 15L11 16L9 16L9 17L8 17L8 15L7 15L7 14L6 14L6 15L5 15L5 13L7 13L7 12L5 12L5 13L1 13L1 12L2 12L2 11L3 11L3 10L4 10L4 11L5 11L5 9L7 9L7 10L6 10L6 11L9 11L9 12L10 12L10 11L12 11L12 10L14 10L14 9L11 9L11 3L10 3L10 2L9 2L9 0ZM14 0L14 1L17 1L17 0ZM11 1L11 2L12 2L12 3L13 3L13 4L12 4L12 5L13 5L13 4L14 4L14 5L17 5L17 3L16 3L16 2L14 2L14 3L13 3L13 1ZM14 3L14 4L16 4L16 3ZM12 6L12 7L13 7L13 6ZM0 8L0 9L2 9L2 8ZM22 9L22 10L23 10L23 9ZM16 10L16 13L17 13L17 14L16 14L16 16L17 16L17 15L18 15L18 14L20 14L20 13L21 13L21 14L23 14L23 13L21 13L21 12L22 12L22 11L21 11L21 10L20 10L20 11L19 11L19 13L18 13L18 12L17 12L17 10ZM13 14L13 15L12 15L12 16L11 16L11 17L13 17L13 18L14 18L14 16L15 16L15 15L14 15L14 14ZM4 15L4 16L5 16L5 15ZM6 15L6 16L7 16L7 15ZM21 15L21 16L22 16L22 15ZM17 17L17 20L20 20L20 17ZM18 18L18 19L19 19L19 18ZM12 20L12 21L11 21L11 23L12 23L12 21L13 21L13 22L15 22L15 23L14 23L14 24L15 24L15 25L16 25L16 24L15 24L15 23L16 23L16 22L15 22L15 21L13 21L13 20ZM20 21L20 22L19 22L19 23L21 23L21 22L22 22L22 23L23 23L23 22L22 22L22 21ZM12 24L12 25L13 25L13 24ZM0 0L0 7L7 7L7 0ZM1 1L1 6L6 6L6 1ZM2 2L2 5L5 5L5 2ZM25 0L18 0L18 7L25 7ZM24 1L19 1L19 6L24 6ZM23 2L20 2L20 5L23 5ZM0 25L7 25L7 18L0 18ZM1 24L6 24L6 19L1 19ZM2 23L5 23L5 20L2 20Z" fill="#000000"/></g></g></svg>
+          </div>
+          <div class="flex gap-2">
+            <button class="flex-1 rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">PNG</button>
+            <button class="flex-1 rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">SVG</button>
+          </div>
+        </div>
+
+        <div class="grid content-start gap-4 min-w-0">
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="flex items-start justify-between gap-4 border-b border-zinc-200 p-4">
+              <div class="min-w-0">
+                <h1 class="truncate text-base font-semibold">Flyer Setembro — regresso às aulas</h1>
+                <p class="mt-0.5 text-xs text-zinc-500">Criado a 2 de Julho de 2026</p>
+              </div>
+              <div class="flex shrink-0 items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700">
+                  <span class="size-1.5 rounded-full bg-emerald-600"></span>Activo
+                </span>
+                <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Editar</button>
+              </div>
+            </div>
+            <dl class="grid gap-3 p-4 text-sm sm:grid-cols-[140px_1fr]">
+              <dt class="text-zinc-500">Endereço do código</dt>
+              <dd class="min-w-0"><span class="font-mono text-zinc-900">qr.exemplo.pt/abc123</span></dd>
+              <dt class="text-zinc-500">Destino actual</dt>
+              <dd class="min-w-0"><span class="block truncate text-zinc-900">https://loja.exemplo.pt/campanhas/setembro-2026/regresso-as-aulas?utm_source=flyer</span></dd>
+            </dl>
+          </div>
+
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="flex items-baseline justify-between gap-4 border-b border-zinc-200 p-4">
+              <h2 class="text-sm font-semibold">Leituras</h2>
+              <span class="text-xs text-zinc-500">últimos 30 dias</span>
+            </div>
+            <!-- Erro contido ao bloco que falhou: o resto do ecrã continua utilizável -->
+            <div class="p-4">
+              <div class="rounded-card border border-red-200 bg-white p-3">
+                <div class="flex gap-2.5">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-5 shrink-0 text-red-600" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
+                  </svg>
+                  <div>
+                    <p class="text-sm text-zinc-700">
+                      <span class="font-medium text-zinc-900">Não foi possível carregar as leituras.</span>
+                      Nenhuma leitura se perdeu — falhou apenas a consulta. O código continua a
+                      redireccionar e a contar normalmente.
+                    </p>
+                    <button class="mt-2.5 rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">
+                      Tentar novamente
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ====================================================================
+     ESTADO 4 — CHEIO
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 4 — CHEIO · 30 dias de leituras, nome longo, URL longo, código inactivo
+</div>
+
+<div class="flex min-h-[660px]">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+      <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
+      <span class="text-sm font-semibold">qr-manager</span>
+    </div>
+    <nav class="flex flex-col gap-0.5 p-2 text-sm">
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+    </nav>
+    <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
+      <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
+      <span class="text-sm text-zinc-600 truncate">Pedro Ruivo</span>
+    </div>
+  </aside>
+
+  <main class="flex-1 min-w-0">
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
+      <a href="#" class="text-zinc-500 hover:text-zinc-900">Códigos QR</a>
+      <span class="text-zinc-300" aria-hidden="true">/</span>
+      <span class="font-semibold truncate">Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)</span>
+    </header>
+
+    <div class="p-6">
+      <div class="grid gap-6 lg:grid-cols-[240px_1fr]">
+
+        <div class="grid gap-3">
+          <div class="border border-zinc-200 bg-white p-3">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="240" height="240" viewBox="0 0 240 240" class="w-full h-auto" role="img" aria-label="Código QR do Cartaz A2 da Feira do Livro"><rect x="0" y="0" width="240" height="240" fill="#ffffff"/><g transform="scale(8.889)"><g transform="translate(1,1)"><path fill-rule="evenodd" d="M8 0L8 4L9 4L9 5L8 5L8 7L9 7L9 6L10 6L10 9L11 9L11 10L9 10L9 9L7 9L7 8L4 8L4 9L3 9L3 10L0 10L0 11L1 11L1 12L0 12L0 14L4 14L4 15L2 15L2 16L0 16L0 17L5 17L5 16L6 16L6 17L8 17L8 18L9 18L9 17L10 17L10 20L9 20L9 19L8 19L8 21L9 21L9 23L8 23L8 25L11 25L11 24L10 24L10 20L11 20L11 19L14 19L14 20L15 20L15 16L16 16L16 21L17 21L17 23L19 23L19 24L17 24L17 25L19 25L19 24L22 24L22 25L25 25L25 24L24 24L24 22L25 22L25 21L24 21L24 19L21 19L21 17L23 17L23 16L24 16L24 15L23 15L23 14L24 14L24 13L25 13L25 12L24 12L24 11L23 11L23 10L24 10L24 9L25 9L25 8L21 8L21 9L20 9L20 8L19 8L19 9L20 9L20 10L19 10L19 11L18 11L18 9L17 9L17 6L16 6L16 7L15 7L15 6L14 6L14 7L15 7L15 8L16 8L16 9L15 9L15 14L14 14L14 13L10 13L10 15L11 15L11 16L9 16L9 17L8 17L8 15L7 15L7 14L6 14L6 15L5 15L5 13L7 13L7 12L5 12L5 13L1 13L1 12L2 12L2 11L3 11L3 10L4 10L4 11L5 11L5 9L7 9L7 10L6 10L6 11L9 11L9 12L10 12L10 11L12 11L12 10L14 10L14 9L11 9L11 3L10 3L10 2L9 2L9 0ZM14 0L14 1L17 1L17 0ZM11 1L11 2L12 2L12 3L13 3L13 4L12 4L12 5L13 5L13 4L14 4L14 5L17 5L17 3L16 3L16 2L14 2L14 3L13 3L13 1ZM14 3L14 4L16 4L16 3ZM12 6L12 7L13 7L13 6ZM0 8L0 9L2 9L2 8ZM22 9L22 10L23 10L23 9ZM16 10L16 13L17 13L17 14L16 14L16 16L17 16L17 15L18 15L18 14L20 14L20 13L21 13L21 14L23 14L23 13L21 13L21 12L22 12L22 11L21 11L21 10L20 10L20 11L19 11L19 13L18 13L18 12L17 12L17 10ZM13 14L13 15L12 15L12 16L11 16L11 17L13 17L13 18L14 18L14 16L15 16L15 15L14 15L14 14ZM4 15L4 16L5 16L5 15ZM6 15L6 16L7 16L7 15ZM21 15L21 16L22 16L22 15ZM17 17L17 20L20 20L20 17ZM18 18L18 19L19 19L19 18ZM12 20L12 21L11 21L11 23L12 23L12 21L13 21L13 22L15 22L15 23L14 23L14 24L15 24L15 25L16 25L16 24L15 24L15 23L16 23L16 22L15 22L15 21L13 21L13 20ZM20 21L20 22L19 22L19 23L21 23L21 22L22 22L22 23L23 23L23 22L22 22L22 21ZM12 24L12 25L13 25L13 24ZM0 0L0 7L7 7L7 0ZM1 1L1 6L6 6L6 1ZM2 2L2 5L5 5L5 2ZM25 0L18 0L18 7L25 7ZM24 1L19 1L19 6L24 6ZM23 2L20 2L20 5L23 5ZM0 25L7 25L7 18L0 18ZM1 24L6 24L6 19L1 19ZM2 23L5 23L5 20L2 20Z" fill="#000000"/></g></g></svg>
+          </div>
+
+          <div class="grid gap-2">
+            <div class="flex gap-2">
+              <button class="flex-1 rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">PNG</button>
+              <button class="flex-1 rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">SVG</button>
+            </div>
+            <label class="grid gap-1 text-xs text-zinc-500">
+              Tamanho do PNG
+              <select class="rounded-card border border-zinc-300 bg-white px-2 py-1.5 text-sm text-zinc-900">
+                <option>512 px — ecrã</option>
+                <option>1024 px — flyer</option>
+                <option selected>2048 px — cartaz</option>
+              </select>
+            </label>
+            <p class="text-xs text-zinc-500">Para gráfica, peça sempre o SVG: não perde definição em nenhum tamanho.</p>
+          </div>
+        </div>
+
+        <div class="grid content-start gap-4 min-w-0">
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="flex items-start justify-between gap-4 border-b border-zinc-200 p-4">
+              <div class="min-w-0">
+                <h1 class="truncate text-base font-semibold">Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)</h1>
+                <p class="mt-0.5 text-xs text-zinc-500">Criado a 12 de Maio de 2026 · última leitura há 9 dias</p>
+              </div>
+              <div class="flex shrink-0 items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500">
+                  <span class="size-1.5 rounded-full border border-zinc-400"></span>Inactivo
+                </span>
+                <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Editar</button>
+              </div>
+            </div>
+
+            <!-- Aviso de consequência: um QR inactivo é papel morto na rua -->
+            <div class="border-b border-zinc-200 bg-amber-50 px-4 py-2.5">
+              <p class="flex items-start gap-2 text-xs text-zinc-700">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-4 shrink-0 text-amber-600" aria-hidden="true">
+                  <path d="M12 4 3 20h18L12 4Z"/><path d="M12 10v4M12 17h.01"/>
+                </svg>
+                <span>Este código está inactivo: quem o ler vê uma página a dizer que já não está disponível.</span>
+              </p>
+            </div>
+
+            <dl class="grid gap-3 p-4 text-sm sm:grid-cols-[140px_1fr]">
+              <dt class="text-zinc-500">Endereço do código</dt>
+              <dd class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="truncate font-mono text-zinc-900">qr.exemplo.pt/k7m2qp</span>
+                  <button aria-label="Copiar o endereço do código" class="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
+                      <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
+                    </svg>
+                  </button>
+                </div>
+              </dd>
+
+              <dt class="text-zinc-500">Destino actual</dt>
+              <dd class="min-w-0">
+                <a href="#" class="block truncate text-zinc-900 hover:text-brand-700"
+                   title="https://loja.exemplo.pt/eventos/feira-do-livro?utm_source=cartaz&utm_medium=qr&utm_campaign=feira-livro-2026&utm_content=entrada-poente">https://loja.exemplo.pt/eventos/feira-do-livro?utm_source=cartaz&amp;utm_medium=qr&amp;utm_campaign=feira-livro-2026</a>
+              </dd>
+            </dl>
+          </div>
+
+          <div class="rounded-card border border-zinc-200 bg-white">
+            <div class="flex items-baseline justify-between gap-4 border-b border-zinc-200 p-4">
+              <div class="flex items-baseline gap-2">
+                <h2 class="text-sm font-semibold">Leituras</h2>
+                <span class="text-xl font-semibold tabular-nums">12 847</span>
+              </div>
+              <span class="text-xs text-zinc-500">últimos 30 dias · máx. 71/dia</span>
+            </div>
+
+            <div class="p-4">
+              <!-- Gráfico de barras: um dia por barra. Dias a zero ficam com uma
+                   linha de base visível — desaparecer seria mentir sobre o eixo. -->
+              <div class="flex h-40 items-end gap-[3px]" role="img"
+                   aria-label="Leituras por dia nos últimos 30 dias: mínimo 0, máximo 71, total 12 847">
+                <div class="flex-1 bg-brand-600" style="height:17%"></div>
+                <div class="flex-1 bg-brand-600" style="height:25%"></div>
+                <div class="flex-1 bg-brand-600" style="height:13%"></div>
+                <div class="flex-1 bg-brand-600" style="height:44%"></div>
+                <div class="flex-1 bg-brand-600" style="height:62%"></div>
+                <div class="flex-1 bg-brand-600" style="height:38%"></div>
+                <div class="flex-1 bg-brand-600" style="height:21%"></div>
+                <div class="flex-1 bg-zinc-200"  style="height:2%"></div>
+                <div class="flex-1 bg-brand-600" style="height:31%"></div>
+                <div class="flex-1 bg-brand-600" style="height:54%"></div>
+                <div class="flex-1 bg-brand-600" style="height:72%"></div>
+                <div class="flex-1 bg-brand-600" style="height:90%"></div>
+                <div class="flex-1 bg-brand-600" style="height:69%"></div>
+                <div class="flex-1 bg-brand-600" style="height:46%"></div>
+                <div class="flex-1 bg-brand-600" style="height:30%"></div>
+                <div class="flex-1 bg-brand-600" style="height:24%"></div>
+                <div class="flex-1 bg-brand-600" style="height:41%"></div>
+                <div class="flex-1 bg-brand-600" style="height:59%"></div>
+                <div class="flex-1 bg-brand-600" style="height:82%"></div>
+                <div class="flex-1 bg-brand-600" style="height:100%"></div>
+                <div class="flex-1 bg-brand-600" style="height:93%"></div>
+                <div class="flex-1 bg-brand-600" style="height:63%"></div>
+                <div class="flex-1 bg-brand-600" style="height:42%"></div>
+                <div class="flex-1 bg-brand-600" style="height:34%"></div>
+                <div class="flex-1 bg-zinc-200"  style="height:2%"></div>
+                <div class="flex-1 bg-brand-600" style="height:27%"></div>
+                <div class="flex-1 bg-brand-600" style="height:37%"></div>
+                <div class="flex-1 bg-brand-600" style="height:52%"></div>
+                <div class="flex-1 bg-brand-600" style="height:61%"></div>
+                <div class="flex-1 bg-brand-600" style="height:48%"></div>
+              </div>
+              <div class="mt-2 flex justify-between text-xs text-zinc-500">
+                <span>17 Jul</span>
+                <span>1 Ago</span>
+                <span>15 Ago</span>
+              </div>
+              <p class="mt-3 text-xs text-zinc-500">
+                Dois dias sem leituras (a cinzento). As datas seguem o fuso horário de Lisboa.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
