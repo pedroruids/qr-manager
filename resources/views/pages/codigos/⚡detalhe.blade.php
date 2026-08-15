@@ -43,28 +43,37 @@ new #[Title('Código QR')] class extends Component
     }
 
     /**
-     * O total é de sempre. O gráfico é dos últimos trinta dias — são perguntas
+     * O total é de sempre; a série é dos últimos trinta dias — são perguntas
      * diferentes: "quanto rendeu este código" e "ainda está a render".
+     *
+     * Devolve `null` se a consulta falhar. A avaria fica contida a este bloco:
+     * a pré-visualização e o download não dependem de leitura nenhuma, e quem
+     * veio buscar o ficheiro tem de o poder levar mesmo com as contas em baixo.
+     *
+     * @return array{total: int, serie: list<array{data: \Carbon\CarbonImmutable, valor: int}>, maximo: int}|null
      */
     #[Computed]
-    public function totalDeLeituras(): int
+    public function leituras(): ?array
     {
-        return $this->qrCode->scans()->count();
-    }
+        try {
+            $total = $this->qrCode->scans()->count();
 
-    /**
-     * @return list<array{data: \Carbon\CarbonImmutable, valor: int}>
-     */
-    #[Computed]
-    public function leiturasPorDia(): array
-    {
-        return app(LeiturasPorDia::class)->paraQrCode($this->qrCode);
-    }
+            if ($total === 0) {
+                return ['total' => 0, 'serie' => [], 'maximo' => 0];
+            }
 
-    #[Computed]
-    public function maximoPorDia(): int
-    {
-        return max(array_column($this->leiturasPorDia, 'valor'));
+            $serie = app(LeiturasPorDia::class)->paraQrCode($this->qrCode);
+
+            return [
+                'total' => $total,
+                'serie' => $serie,
+                'maximo' => max(array_column($serie, 'valor')),
+            ];
+        } catch (\Throwable $excepcao) {
+            report($excepcao);
+
+            return null;
+        }
     }
 }; ?>
 
@@ -155,19 +164,40 @@ new #[Title('Código QR')] class extends Component
                     <div class="flex items-baseline gap-2">
                         <flux:heading>Leituras</flux:heading>
 
-                        <span class="text-xl font-semibold tabular-nums {{ $this->totalDeLeituras === 0 ? 'text-zinc-400 dark:text-zinc-500' : '' }}">
-                            {{ number_format($this->totalDeLeituras, 0, ',', ' ') }}
-                        </span>
+                        @if ($this->leituras !== null)
+                            <span class="text-xl font-semibold tabular-nums {{ $this->leituras['total'] === 0 ? 'text-zinc-400 dark:text-zinc-500' : '' }}">
+                                {{ number_format($this->leituras['total'], 0, ',', ' ') }}
+                            </span>
+                        @endif
                     </div>
 
-                    @if ($this->totalDeLeituras > 0)
+                    @if ($this->leituras !== null && $this->leituras['total'] > 0)
                         <flux:text size="sm">
-                            últimos {{ LeiturasPorDia::DIAS }} dias · máx. {{ $this->maximoPorDia }}/dia
+                            últimos {{ LeiturasPorDia::DIAS }} dias · máx. {{ $this->leituras['maximo'] }}/dia
                         </flux:text>
                     @endif
                 </div>
 
-                @if ($this->totalDeLeituras === 0)
+                @if ($this->leituras === null)
+                    {{--
+                        Avaria, não vazio. E contida a este bloco: o código
+                        continua a redireccionar e a contar, e o ficheiro
+                        continua a poder ser descarregado aqui ao lado.
+                    --}}
+                    <div class="flex items-start gap-2 p-4">
+                        <flux:icon.exclamation-triangle class="mt-0.5 size-4 shrink-0 text-zinc-500 dark:text-zinc-400" />
+
+                        <div>
+                            <flux:text>
+                                <span class="font-medium text-zinc-900 dark:text-zinc-100">Não foi possível carregar as leituras.</span>
+                                Nenhuma leitura se perdeu — falhou apenas a consulta. O código continua a
+                                redireccionar e a contar normalmente.
+                            </flux:text>
+
+                            <flux:button size="sm" class="mt-2.5" wire:click="$refresh">Tentar novamente</flux:button>
+                        </div>
+                    </div>
+                @elseif ($this->leituras['total'] === 0)
                     {{--
                         Vazio, não erro: o código foi criado e ainda ninguém o
                         leu. O ecrã diz isso e diz desde quando conta.
@@ -181,7 +211,7 @@ new #[Title('Código QR')] class extends Component
                 @else
                     <div class="p-4">
                         <x-bar-chart
-                            :serie="$this->leiturasPorDia"
+                            :serie="$this->leituras['serie']"
                             rotulo="Leituras por dia nos últimos {{ LeiturasPorDia::DIAS }} dias"
                         />
                     </div>
