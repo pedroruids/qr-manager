@@ -26,6 +26,11 @@ Apagar um `QrCode` apaga as suas leituras: a chave estrangeira tem
 ## Módulos e fronteiras
 Como o código está organizado, e o que não deve depender de quê.
 
+**`app/Services/GeradorQrCode`** transforma um `QrCode` em ficheiro. É o único
+sítio que sabe o que fica codificado — o URL curto do slug, nunca o destino — e
+o único que conhece o nível de correcção de erros. Ecrãs e API pedem-lhe o SVG
+ou o PNG; não montam nenhum dos dois.
+
 **O redirect público é uma ilha.** `routes/publico.php` →
 `RedirectPublicoController` → `errors/codigo-inactivo.blade.php`. Não passa pelo
 grupo `web`, não abre sessão, não conhece o utilizador autenticado e não usa o
@@ -35,7 +40,8 @@ depende dele: partilham o modelo `QrCode` e mais nada.
 ## Packages escolhidos
 | Package | Para quê | Porque este |
 |---|---|---|
-| | | |
+| `bacon/bacon-qr-code` | Codificar o URL curto em matriz e em SVG | Já vinha instalado com o 2FA do starter kit; não se acrescentou nada para isto |
+| `khanamiryan/qrcode-detector-decoder` (dev) | Descodificar o PNG gerado, nos testes | Um teste que confirma que o código é legível tem de o ler mesmo. Só em `require-dev`: nunca corre em produção |
 
 ## Integrações externas
 Serviços, APIs, webhooks. O que acontece quando ficam indisponíveis.

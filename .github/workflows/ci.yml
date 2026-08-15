@@ -27,7 +27,9 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
-          extensions: pdo_sqlite, sqlite3
+          # gd: o PNG do código QR é desenhado módulo a módulo em GD, e o
+          # descodificador que os testes usam lê a imagem pela mesma extensão.
+          extensions: pdo_sqlite, sqlite3, gd
           coverage: none
 
       - name: Localizar a cache do Composer
