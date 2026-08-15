@@ -36,13 +36,20 @@ Unidade base de espaçamento: **4px**
 | Uso | Token | Quando |
 |---|---|---|
 | Primária | `brand-600` | Ação principal do ecrã — **uma por ecrã** |
-| Texto | `neutral-900` | Corpo |
-| Texto secundário | `neutral-500` | Metadados, legendas |
-| Fundo | `white` / `neutral-50` | Página e superfícies |
-| Borda | `neutral-200` | Separadores, contornos |
-| Sucesso / Aviso / Erro | `emerald-600` / `amber-600` / `red-600` | Apenas feedback de estado |
+| Texto | `zinc-900` | Corpo |
+| Texto secundário | `zinc-500` | Metadados, legendas |
+| Fundo | `white` / `zinc-50` | Página e superfícies |
+| Borda | `zinc-200` | Separadores, contornos |
+| Sucesso / Aviso / Erro | `emerald-600` / `amber-600` / `red-600` | Feedback de estado **e** estado de dados |
 
 Regra: **cor comunica, não decora.** Se um elemento não muda de significado com a cor, é neutro.
+
+**Estado de dados** (um QR activo ou inactivo) pode usar as cores de estado, com
+duas condições: a cor entra como ponto ou contorno pequeno, nunca como fundo da
+linha; e o rótulo em texto está sempre presente. Nunca só cor.
+
+**Valor ausente é informação, não erro.** Zero leituras escreve-se `0` em
+`zinc-400` — dito, mas sem puxar o olho. Não se esconde nem se substitui por "—".
 
 ---
 
@@ -61,6 +68,10 @@ Componentes próprios vivem em `resources/views/components/`. Previstos:
 **Criar componente novo exige justificação.** Se algo aparece em dois ecrãs, é
 componente. Se aparece num, é composição.
 
+**Excepção ao raio:** os badges de estado são `rounded-full`, não `--radius-card`.
+É a convenção do `flux:badge` e lutar contra ela dá mais custo do que valor.
+É a única excepção; tudo o resto usa o raio do sistema.
+
 ---
 
 ## Regras de composição
@@ -70,6 +81,9 @@ componente. Se aparece num, é composição.
 3. **Espaçamento vertical** entre secções: sempre o mesmo valor. Não afinar caso a caso.
 4. **Alinhamento à esquerda** por defeito. Números alinhados à direita em tabelas.
 5. **Nada de sombras** exceto em elementos flutuantes (modal, dropdown).
+6. **Texto que pode ser longo trunca numa linha**, com o valor completo em `title`.
+   As larguras saem da grelha da tabela (`table-fixed` com percentagens), não de
+   valores soltos em pixéis.
 
 ---
 
@@ -102,3 +116,6 @@ Alterações ao sistema ficam aqui, com data e razão.
 | Data | Alteração | Porquê |
 |---|---|---|
 | 2026-08-15 | Sistema inicial: Inter, indigo `#4F46E5`, zinc, raio `0.5rem`, densidade compacta | Decidido no arranque do projeto, antes de qualquer ecrã |
+| 2026-08-15 | Cores de estado passam a cobrir estado de dados (activo/inactivo), com rótulo em texto obrigatório | Saiu do mockup `lista-qrs`: sem isto o estado de um QR ficava indistinguível na tabela |
+| 2026-08-15 | Zero escreve-se `0` em `zinc-400` | Distinguir "ainda sem leituras" de erro sem inventar um símbolo |
+| 2026-08-15 | Badges de estado em `rounded-full`, única excepção ao raio do sistema | Convenção do `flux:badge`; contrariá-la custa mais do que vale |
