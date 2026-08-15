@@ -2,6 +2,8 @@
 
 use App\Models\QrCode;
 use App\Services\GeradorQrCode;
+use App\Services\LeiturasPorDia;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -38,6 +40,31 @@ new #[Title('Código QR')] class extends Component
     public function urlCurto(): string
     {
         return route('redirect.publico', $this->qrCode->slug);
+    }
+
+    /**
+     * O total é de sempre. O gráfico é dos últimos trinta dias — são perguntas
+     * diferentes: "quanto rendeu este código" e "ainda está a render".
+     */
+    #[Computed]
+    public function totalDeLeituras(): int
+    {
+        return $this->qrCode->scans()->count();
+    }
+
+    /**
+     * @return list<array{data: \Carbon\CarbonImmutable, valor: int}>
+     */
+    #[Computed]
+    public function leiturasPorDia(): array
+    {
+        return app(LeiturasPorDia::class)->paraQrCode($this->qrCode);
+    }
+
+    #[Computed]
+    public function maximoPorDia(): int
+    {
+        return max(array_column($this->leiturasPorDia, 'valor'));
     }
 }; ?>
 
@@ -121,6 +148,44 @@ new #[Title('Código QR')] class extends Component
                         </flux:text>
                     </dd>
                 </dl>
+            </div>
+
+            <div class="rounded-card border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+                <div class="flex items-baseline justify-between gap-4 border-b border-zinc-200 p-4 dark:border-zinc-800">
+                    <div class="flex items-baseline gap-2">
+                        <flux:heading>Leituras</flux:heading>
+
+                        <span class="text-xl font-semibold tabular-nums {{ $this->totalDeLeituras === 0 ? 'text-zinc-400 dark:text-zinc-500' : '' }}">
+                            {{ number_format($this->totalDeLeituras, 0, ',', ' ') }}
+                        </span>
+                    </div>
+
+                    @if ($this->totalDeLeituras > 0)
+                        <flux:text size="sm">
+                            últimos {{ LeiturasPorDia::DIAS }} dias · máx. {{ $this->maximoPorDia }}/dia
+                        </flux:text>
+                    @endif
+                </div>
+
+                @if ($this->totalDeLeituras === 0)
+                    {{--
+                        Vazio, não erro: o código foi criado e ainda ninguém o
+                        leu. O ecrã diz isso e diz desde quando conta.
+                    --}}
+                    <x-empty-state
+                        compacto
+                        valor="0"
+                        titulo="Ainda sem leituras"
+                        descricao="As leituras aparecem aqui assim que alguém apontar a câmara ao código. A contagem começa no momento em que o código foi criado."
+                    />
+                @else
+                    <div class="p-4">
+                        <x-bar-chart
+                            :serie="$this->leiturasPorDia"
+                            rotulo="Leituras por dia nos últimos {{ LeiturasPorDia::DIAS }} dias"
+                        />
+                    </div>
+                @endif
             </div>
         </div>
 

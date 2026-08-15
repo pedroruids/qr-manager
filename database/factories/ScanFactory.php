@@ -4,8 +4,8 @@ namespace Database\Factories;
 
 use App\Models\QrCode;
 use App\Models\Scan;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 /**
  * @extends Factory<Scan>
@@ -28,7 +28,7 @@ class ScanFactory extends Factory
      * Leitura num dia concreto — o gráfico de leituras por dia precisa de
      * distribuir leituras pelo calendário.
      */
-    public function em(Carbon $momento): static
+    public function em(DateTimeInterface $momento): static
     {
         return $this->state(fn (array $atributos): array => ['created_at' => $momento]);
     }

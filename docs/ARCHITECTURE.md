@@ -11,14 +11,19 @@ Diagrama ou lista — o que for mais legível.
 |---|---|---|
 | `User` | Do starter kit | tem muitos `QrCode` |
 | `QrCode` | `user_id`, `nome`, `slug` (único, imutável), `destino`, `activo`, timestamps | pertence a `User`, tem muitas `Scan` |
-| `Scan` | `qr_code_id`, `user_agent` (opcional), `created_at` | pertence a `QrCode` |
+| `Scan` | `qr_code_id`, `user_agent` (opcional), `created_at`, `data_local` | pertence a `QrCode` |
 
 **Índices em `qr_codes`:** `slug` único (é por aí que o redirect público procura)
 e `(user_id, created_at)` para a listagem, que ordena do mais recente para o mais
 antigo.
 
-**Índice em `scans`:** `(qr_code_id, created_at)` — a contagem de leituras por dia
-consulta as leituras de um QR num intervalo de datas.
+**Índices em `scans`:** `(qr_code_id, created_at)` para o intervalo em tempo real,
+e `(qr_code_id, data_local)` para a contagem por dia, que é por onde o gráfico do
+detalhe consulta.
+
+A `data_local` é o dia civil a que a leitura pertence no fuso do utilizador,
+decidido no momento em que se grava. O `created_at` continua em UTC. Ver
+`docs/DECISIONS.md`.
 
 Apagar um `QrCode` apaga as suas leituras: a chave estrangeira tem
 `cascadeOnDelete`. Um `Scan` órfão não responde a pergunta nenhuma.

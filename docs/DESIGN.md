@@ -118,7 +118,11 @@ Componentes próprios vivem em `resources/views/components/`. Existem:
   completo. `rotulo` é o `aria-label` do botão e muda com o contexto —
   "Copiar o endereço de Flyer Setembro" diz mais do que "Copiar"
 
-Previsto e ainda por construir: `x-bar-chart` (leituras por dia).
+- `x-bar-chart` — barras verticais a partir de uma série de pares data/valor,
+  sem JavaScript e sem bibliotecas. A escala sai do máximo da série; os dias a
+  zero ficam com uma linha de base em `zinc-200`, porque desaparecerem seria
+  mentir sobre o eixo. `role="img"` com um rótulo que resume mínimo, máximo e
+  total, e datas no eixo só no início, meio e fim
 
 **Criar componente novo exige justificação.** Se algo aparece em dois ecrãs, é
 componente. Se aparece num, é composição.

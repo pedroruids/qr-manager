@@ -19,7 +19,12 @@ it('tem um índice composto em qr_code_id e created_at, por esta ordem', functio
 // Enunciado de âmbito: «qr_code_id, user_agent, created_at». IP, país,
 // dispositivo e referrer ficam de fora.
 
-it('guarda apenas qr_code_id, user_agent e created_at', function () {
+// A `data_local` entrou com o issue #11: é o dia a que a leitura pertence no
+// fuso do utilizador, decidido na gravação. Não é dado novo sobre quem leu — é
+// o mesmo instante do `created_at`, arrumado no dia certo — e por isso não
+// abre a fronteira que este âmbito fecha.
+
+it('guarda apenas qr_code_id, user_agent, created_at e o dia da leitura', function () {
     $colunas = collect(Schema::getColumnListing('scans'))
         ->reject(fn (string $coluna): bool => $coluna === 'id')
         ->values()
@@ -27,7 +32,7 @@ it('guarda apenas qr_code_id, user_agent e created_at', function () {
 
     sort($colunas);
 
-    expect($colunas)->toBe(['created_at', 'qr_code_id', 'user_agent']);
+    expect($colunas)->toBe(['created_at', 'data_local', 'qr_code_id', 'user_agent']);
 });
 
 it('não guarda dados que ficaram fora de âmbito', function (string $coluna) {
