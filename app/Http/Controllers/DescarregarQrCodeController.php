@@ -24,16 +24,16 @@ class DescarregarQrCodeController extends Controller
 
         abort_unless(in_array($formato, ['png', 'svg'], true), 404);
 
-        $dados = $request->validate([
-            'tamanho' => [
-                'sometimes',
-                'integer',
-                'min:'.GeradorQrCode::TAMANHO_PNG_MINIMO,
-                'max:'.GeradorQrCode::TAMANHO_PNG_MAXIMO,
-            ],
-        ]);
+        // Um tamanho impossível é um endereço que não existe, e responde-se como
+        // tal. Redireccionar para trás com um erro de validação é resposta para
+        // um formulário; isto é um endereço de ficheiro, que alguém pode ter
+        // aberto directamente e onde não há "trás" nenhum.
+        $tamanho = (int) $request->query('tamanho', (string) GeradorQrCode::TAMANHO_PNG_OMISSAO);
 
-        $tamanho = (int) ($dados['tamanho'] ?? GeradorQrCode::TAMANHO_PNG_OMISSAO);
+        abort_if(
+            $tamanho < GeradorQrCode::TAMANHO_PNG_MINIMO || $tamanho > GeradorQrCode::TAMANHO_PNG_MAXIMO,
+            404
+        );
 
         [$conteudo, $tipo] = $formato === 'png'
             ? [$gerador->png($qrCode, $tamanho), 'image/png']
