@@ -46,17 +46,17 @@ class AppServiceProvider extends ServiceProvider
             fn (ApiToken $token, bool $eValido): bool => $eValido && ! $token->estaRevogado()
         );
 
-        // O limite é por token, não por IP: duas ferramentas do mesmo cliente
-        // atrás do mesmo IP não se estorvam uma à outra, e um token que se
-        // descontrola não leva os outros com ele. Sem token — um pedido que vai
-        // levar 401 de qualquer forma — cai-se no IP, para que ninguém possa
-        // martelar a porta à borla.
+        // O limite da API é por token: duas ferramentas do mesmo cliente atrás
+        // do mesmo IP não se estorvam uma à outra, e um token que se
+        // descontrola não leva os outros com ele. Este limitador só corre
+        // depois do `auth:sanctum`, portanto há sempre token — o limite por IP
+        // dos pedidos anónimos está no LimitarPedidosDaApiPorIp, à entrada.
         RateLimiter::for('api', function (Request $request): Limit {
             $token = $request->user()?->currentAccessToken();
 
-            return $token instanceof ApiToken
-                ? Limit::perMinute(60)->by('token:'.$token->id)
-                : Limit::perMinute(20)->by('ip:'.$request->ip());
+            return Limit::perMinute(60)->by(
+                $token instanceof ApiToken ? 'token:'.$token->id : 'ip:'.$request->ip()
+            );
         });
     }
 

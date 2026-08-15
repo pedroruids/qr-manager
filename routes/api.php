@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
-| A API é autenticada por token e limitada por token — não por IP. Duas
-| ferramentas do mesmo cliente atrás do mesmo IP não se estorvam uma à outra, e
-| um token que se descontrola não leva os outros com ele.
+| A API é limitada em dois pontos:
+|
+|   por IP, à entrada, antes da autenticação — está no grupo `api`, montado no
+|   bootstrap/app.php, porque o middleware de rota é ordenado por prioridade e o
+|   `auth:sanctum` fica sempre à frente;
+|
+|   por token, aqui — duas ferramentas do mesmo cliente atrás do mesmo IP não se
+|   estorvam uma à outra, e um token que se descontrola não leva os outros com
+|   ele.
 */
 
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
