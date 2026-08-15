@@ -115,7 +115,8 @@ Componentes próprios vivem em `resources/views/components/`. Existem:
   a zero
 - `x-copy-field` — valor mono com botão de copiar (slug, token). `texto` mostra
   uma versão curta; o que vai para a área de transferência é sempre o `valor`
-  completo
+  completo. `rotulo` é o `aria-label` do botão e muda com o contexto —
+  "Copiar o endereço de Flyer Setembro" diz mais do que "Copiar"
 
 Previsto e ainda por construir: `x-bar-chart` (leituras por dia).
 
