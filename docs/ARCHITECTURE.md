@@ -10,11 +10,18 @@ Diagrama ou lista — o que for mais legível.
 | Entidade | Descrição | Relações |
 |---|---|---|
 | `User` | Do starter kit | tem muitos `QrCode` |
-| `QrCode` | `user_id`, `nome`, `slug` (único, imutável), `destino`, `activo`, timestamps | pertence a `User` |
+| `QrCode` | `user_id`, `nome`, `slug` (único, imutável), `destino`, `activo`, timestamps | pertence a `User`, tem muitas `Scan` |
+| `Scan` | `qr_code_id`, `user_agent` (opcional), `created_at` | pertence a `QrCode` |
 
 **Índices em `qr_codes`:** `slug` único (é por aí que o redirect público procura)
 e `(user_id, created_at)` para a listagem, que ordena do mais recente para o mais
 antigo.
+
+**Índice em `scans`:** `(qr_code_id, created_at)` — a contagem de leituras por dia
+consulta as leituras de um QR num intervalo de datas.
+
+Apagar um `QrCode` apaga as suas leituras: a chave estrangeira tem
+`cascadeOnDelete`. Um `Scan` órfão não responde a pergunta nenhuma.
 
 ## Módulos e fronteiras
 Como o código está organizado, e o que não deve depender de quê.
@@ -41,6 +48,9 @@ Se esta secção estiver vazia, ótimo.
   redirect num erro para quem lê o código na rua.
 - **Alfabeto do slug sem `0`, `O`, `1`, `l` e `i`** — quem lê um slug de um flyer
   lê-o carácter a carácter, e estes confundem-se.
+- **`Scan` só tem `created_at`** (`UPDATED_AT = null`) — uma leitura é um facto
+  acontecido, grava-se uma vez e nunca muda. Uma coluna `updated_at` seria uma
+  coluna que ninguém escreve e que sugere uma edição que não existe.
 
 ## Filas e trabalho assíncrono
 O que corre em background e porquê.
