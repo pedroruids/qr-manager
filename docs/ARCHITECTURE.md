@@ -37,6 +37,16 @@ sítio que sabe o que fica codificado — o URL curto do slug, nunca o destino �
 o único que conhece o nível de correcção de erros. Ecrãs e API pedem-lhe o SVG
 ou o PNG; não montam nenhum dos dois.
 
+**A API vive em `routes/api.php`**, autenticada por token do Sanctum e limitada
+por token. Devolve sempre JSON — nunca uma view — através do `QrCodeResource`,
+que já traz o URL curto e os endereços dos ficheiros montados: quem chama a API
+está a automatizar e não deve ter de compor endereços nossos a partir do slug.
+Todas as consultas partem de `$request->user()->qrCodes()`, nunca do modelo.
+
+O download é o mesmo `DescarregarQrCodeController` da interface, apanhado por
+duas rotas: os formatos, os limites de tamanho e o nome do ficheiro são os
+mesmos, e não há razão para os escrever duas vezes.
+
 **O redirect público é uma ilha.** `routes/publico.php` →
 `RedirectPublicoController` → `errors/codigo-inactivo.blade.php`. Não passa pelo
 grupo `web`, não abre sessão, não conhece o utilizador autenticado e não usa o
