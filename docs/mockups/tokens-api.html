@@ -10,6 +10,8 @@
 
 <style type="text/tailwindcss">
   /* Copiado de resources/css/app.css — os mesmos tokens que a aplicação usa. */
+  @custom-variant dark (&:where(.dark, .dark *));
+
   @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
@@ -45,7 +47,13 @@
 </style>
 </head>
 
-<body class="bg-zinc-50 text-zinc-900 font-sans antialiased">
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans antialiased">
+
+<!-- Andaime do mockup, não faz parte do ecrã: alterna claro/escuro -->
+<button onclick="document.documentElement.classList.toggle('dark')"
+        class="fixed top-3 right-3 z-50 rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300">
+  Alternar tema
+</button>
 
 <!-- ========================================================================
      Issue #12. As barras escuras "ESTADO N" não fazem parte do ecrã.
@@ -59,43 +67,43 @@
 </div>
 
 <div class="flex min-h-[560px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 hover:bg-zinc-50">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium text-zinc-900">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 hover:bg-zinc-50">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium text-zinc-900 dark:text-zinc-100">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800">Definições</a>
     </nav>
-    <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
-      <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
+    <div class="mt-auto border-t border-zinc-200 dark:border-zinc-800 p-3 flex items-center gap-2">
+      <span class="grid place-items-center size-7 rounded-card bg-zinc-200 dark:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300">PR</span>
+      <span class="text-sm text-zinc-600 dark:text-zinc-400 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 bg-white">
+    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
       <h1 class="text-base font-semibold">Tokens de API</h1>
-      <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Criar token</button>
+      <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Criar token</button>
     </header>
 
     <div class="p-6">
       <!-- componente novo: x-empty-state (issue #18) -->
-      <div class="rounded-card border border-zinc-200 bg-white px-6 py-14 text-center">
-        <div class="mx-auto grid place-items-center size-12 bg-brand-50 text-brand-600 rounded-card">
+      <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-14 text-center">
+        <div class="mx-auto grid place-items-center size-12 bg-brand-50 dark:bg-brand-900 text-brand-600 dark:text-brand-300 rounded-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6" aria-hidden="true">
             <circle cx="8" cy="15" r="4"/><path d="M10.8 12.2 20 3l1.5 1.5-1 1 1.5 1.5-1.5 1.5-1.5-1.5-2 2 1.5 1.5-1.5 1.5"/>
           </svg>
         </div>
-        <h2 class="mt-4 text-sm font-semibold text-zinc-900">Ainda não criou nenhum token</h2>
-        <p class="mx-auto mt-1 max-w-md text-sm text-zinc-500">
+        <h2 class="mt-4 text-sm font-semibold text-zinc-900 dark:text-zinc-100">Ainda não criou nenhum token</h2>
+        <p class="mx-auto mt-1 max-w-md text-sm text-zinc-500 dark:text-zinc-400">
           Um token deixa outra ferramenta criar e gerir códigos QR sem passar por aqui —
           por exemplo, gerar um código por cada produto de um catálogo.
         </p>
         <button class="mt-5 rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">Criar o primeiro token</button>
-        <p class="mx-auto mt-4 max-w-md text-xs text-zinc-500">
+        <p class="mx-auto mt-4 max-w-md text-xs text-zinc-500 dark:text-zinc-400">
           Quem tiver o token pode criar e alterar os seus códigos. Guarde-o como guardaria uma palavra-passe.
         </p>
       </div>
@@ -111,28 +119,28 @@
 </div>
 
 <div class="flex min-h-[460px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Definições</a>
     </nav>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 bg-white">
+    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
       <h1 class="text-base font-semibold">Tokens de API</h1>
       <button class="rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white">Criar token</button>
     </header>
 
     <div class="p-6">
-      <div class="overflow-hidden rounded-card border border-zinc-200 bg-white">
+      <div class="overflow-hidden rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
         <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500">
+          <thead class="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-xs font-medium text-zinc-500 dark:text-zinc-400">
             <tr>
               <th class="px-4 py-2.5 text-left">Nome</th>
               <th class="px-4 py-2.5 text-left">Token</th>
@@ -141,22 +149,22 @@
               <th class="px-4 py-2.5"><span class="sr-only">Ações</span></th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100 animate-pulse">
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-40 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-28 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-20 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-16 rounded-card bg-zinc-200"></div></td></tr>
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-52 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-28 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-16 rounded-card bg-zinc-200"></div></td></tr>
-            <tr><td class="px-4 py-3"><div class="h-3.5 w-32 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-28 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200"></div></td>
-                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-16 rounded-card bg-zinc-200"></div></td></tr>
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800 animate-pulse">
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-40 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-28 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-20 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-16 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td></tr>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-52 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-28 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-16 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-16 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td></tr>
+            <tr><td class="px-4 py-3"><div class="h-3.5 w-32 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-28 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="h-3.5 w-24 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td>
+                <td class="px-4 py-3"><div class="ml-auto h-3.5 w-16 rounded-card bg-zinc-200 dark:bg-zinc-800"></div></td></tr>
           </tbody>
         </table>
       </div>
@@ -173,45 +181,45 @@
 </div>
 
 <div class="flex min-h-[500px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Definições</a>
     </nav>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 bg-white">
+    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
       <h1 class="text-base font-semibold">Tokens de API</h1>
       <button class="rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white">Criar token</button>
     </header>
 
     <div class="p-6 grid gap-4">
       <!-- componente: flux:callout variant=danger -->
-      <div class="rounded-card border border-red-200 bg-white p-3">
+      <div class="rounded-card border border-red-200 dark:border-red-900 bg-white dark:bg-zinc-900 p-3">
         <div class="flex gap-2.5">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-5 shrink-0 text-red-600" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-5 shrink-0 text-red-600 dark:text-red-400" aria-hidden="true">
             <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
           </svg>
           <div>
-            <p class="text-sm text-zinc-700">
-              <span class="font-medium text-zinc-900">O token não foi revogado.</span>
+            <p class="text-sm text-zinc-700 dark:text-zinc-300">
+              <span class="font-medium text-zinc-900 dark:text-zinc-100">O token não foi revogado.</span>
               Continua válido e quem o tiver continua a poder criar e alterar códigos.
               Tente outra vez; se falhar de novo, crie um token novo e mude a ferramenta que o usa.
             </p>
-            <button class="mt-2.5 rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Tentar revogar novamente</button>
+            <button class="mt-2.5 rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Tentar revogar novamente</button>
           </div>
         </div>
       </div>
 
-      <div class="overflow-hidden rounded-card border border-zinc-200 bg-white">
+      <div class="overflow-hidden rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
         <table class="w-full text-sm">
-          <thead class="border-b border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500">
+          <thead class="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-xs font-medium text-zinc-500 dark:text-zinc-400">
             <tr>
               <th class="px-4 py-2.5 text-left font-medium">Nome</th>
               <th class="px-4 py-2.5 text-left font-medium">Token</th>
@@ -220,14 +228,14 @@
               <th class="px-4 py-2.5"><span class="sr-only">Ações</span></th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
             <tr>
               <td class="px-4 py-2.5 font-medium">Catálogo — sincronização nocturna</td>
-              <td class="px-4 py-2.5 font-mono text-zinc-600">qrm_…8f3a</td>
-              <td class="px-4 py-2.5 text-zinc-600">2 Jul 2026</td>
-              <td class="px-4 py-2.5 text-zinc-600">há 3 horas</td>
+              <td class="px-4 py-2.5 font-mono text-zinc-600 dark:text-zinc-400">qrm_…8f3a</td>
+              <td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">2 Jul 2026</td>
+              <td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">há 3 horas</td>
               <td class="px-4 py-2.5 text-right">
-                <button class="rounded-card border border-zinc-300 bg-white px-2.5 py-1 text-sm font-medium text-red-700 hover:bg-zinc-50">Revogar</button>
+                <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2.5 py-1 text-sm font-medium text-red-700 dark:text-red-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Revogar</button>
               </td>
             </tr>
           </tbody>
@@ -245,56 +253,56 @@
 </div>
 
 <div class="flex min-h-[640px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Definições</a>
     </nav>
-    <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
-      <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
+    <div class="mt-auto border-t border-zinc-200 dark:border-zinc-800 p-3 flex items-center gap-2">
+      <span class="grid place-items-center size-7 rounded-card bg-zinc-200 dark:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300">PR</span>
+      <span class="text-sm text-zinc-600 dark:text-zinc-400 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 bg-white">
+    <header class="flex items-center justify-between gap-4 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
       <div class="flex items-baseline gap-2">
         <h1 class="text-base font-semibold">Tokens de API</h1>
-        <span class="text-sm text-zinc-500 tabular-nums">4</span>
+        <span class="text-sm text-zinc-500 dark:text-zinc-400 tabular-nums">4</span>
       </div>
-      <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Criar token</button>
+      <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Criar token</button>
     </header>
 
     <div class="p-6 grid gap-4">
 
       <!-- O token em claro, mostrado uma única vez. Faixa neutra: o sistema não
            tem fundos de cor; o peso vem do texto e da posição, não da cor. -->
-      <div class="rounded-card border border-zinc-300 bg-zinc-50 p-4">
+      <div class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 p-4">
         <h2 class="text-sm font-semibold">Copie o token agora</h2>
-        <p class="mt-1 text-sm text-zinc-600">
+        <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
           É a única vez que ele aparece. Depois de sair desta página fica só o resumo —
           se o perder, tem de criar outro e mudar a ferramenta que o usa.
         </p>
         <!-- componente novo: x-copy-field (issue #17), variante larga -->
-        <div class="mt-3 flex items-center gap-2 rounded-card border border-zinc-300 bg-white px-3 py-2">
+        <div class="mt-3 flex items-center gap-2 rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2">
           <span class="truncate font-mono text-sm" title="qrm_9Xk2LpQ7ta4NvZ0RbEwH6mYcJs1UgDf3">qrm_9Xk2LpQ7ta4NvZ0RbEwH6mYcJs1UgDf3</span>
           <button aria-label="Copiar o token" class="ml-auto shrink-0 rounded-card bg-brand-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-brand-700">Copiar</button>
         </div>
-        <p class="mt-2 text-xs text-zinc-500">
+        <p class="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
           Envie-o por um canal seguro. Quem o tiver pode criar e alterar todos os seus códigos.
         </p>
       </div>
 
       <!-- componente: flux:table -->
-      <div class="overflow-x-auto rounded-card border border-zinc-200 bg-white">
+      <div class="overflow-x-auto rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
         <table class="w-full table-fixed text-sm">
           <colgroup><col class="w-[34%]"><col class="w-[16%]"><col class="w-[14%]"><col class="w-[16%]"><col class="w-[20%]"></colgroup>
-          <thead class="border-b border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500">
+          <thead class="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-xs font-medium text-zinc-500 dark:text-zinc-400">
             <tr>
               <th scope="col" class="px-4 py-2.5 text-left font-medium">Nome</th>
               <th scope="col" class="px-4 py-2.5 text-left font-medium">Token</th>
@@ -303,45 +311,45 @@
               <th scope="col" class="px-4 py-2.5"><span class="sr-only">Ações</span></th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-zinc-100">
+          <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
 
-            <tr class="hover:bg-zinc-50">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800">
               <td class="px-4 py-2.5">
                 <span class="block truncate font-medium" title="Integração com o catálogo — servidor de produção">Integração com o catálogo — servidor de produção</span>
               </td>
-              <td class="px-4 py-2.5 font-mono text-zinc-600">qrm_…gDf3</td>
-              <td class="px-4 py-2.5 text-zinc-600">hoje</td>
-              <td class="px-4 py-2.5 text-zinc-400">nunca usado</td>
+              <td class="px-4 py-2.5 font-mono text-zinc-600 dark:text-zinc-400">qrm_…gDf3</td>
+              <td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">hoje</td>
+              <td class="px-4 py-2.5 text-zinc-400 dark:text-zinc-500">nunca usado</td>
               <td class="px-4 py-2.5 text-right">
-                <button class="rounded-card border border-zinc-300 bg-white px-2.5 py-1 text-sm font-medium text-red-700 hover:bg-zinc-50">Revogar</button>
+                <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2.5 py-1 text-sm font-medium text-red-700 dark:text-red-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Revogar</button>
               </td>
             </tr>
 
-            <tr class="hover:bg-zinc-50">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800">
               <td class="px-4 py-2.5"><span class="block truncate font-medium" title="Catálogo — sincronização nocturna">Catálogo — sincronização nocturna</span></td>
-              <td class="px-4 py-2.5 font-mono text-zinc-600">qrm_…8f3a</td>
-              <td class="px-4 py-2.5 text-zinc-600">2 Jul 2026</td>
-              <td class="px-4 py-2.5 text-zinc-600">há 3 horas</td>
+              <td class="px-4 py-2.5 font-mono text-zinc-600 dark:text-zinc-400">qrm_…8f3a</td>
+              <td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">2 Jul 2026</td>
+              <td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">há 3 horas</td>
               <td class="px-4 py-2.5 text-right">
-                <button class="rounded-card border border-zinc-300 bg-white px-2.5 py-1 text-sm font-medium text-red-700 hover:bg-zinc-50">Revogar</button>
+                <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2.5 py-1 text-sm font-medium text-red-700 dark:text-red-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Revogar</button>
               </td>
             </tr>
 
-            <tr class="hover:bg-zinc-50">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800">
               <td class="px-4 py-2.5"><span class="block truncate font-medium" title="Testes locais do André">Testes locais do André</span></td>
-              <td class="px-4 py-2.5 font-mono text-zinc-600">qrm_…1c7b</td>
-              <td class="px-4 py-2.5 text-zinc-600">19 Mai 2026</td>
-              <td class="px-4 py-2.5 text-zinc-600">há 2 meses</td>
+              <td class="px-4 py-2.5 font-mono text-zinc-600 dark:text-zinc-400">qrm_…1c7b</td>
+              <td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">19 Mai 2026</td>
+              <td class="px-4 py-2.5 text-zinc-600 dark:text-zinc-400">há 2 meses</td>
               <td class="px-4 py-2.5 text-right">
-                <button class="rounded-card border border-zinc-300 bg-white px-2.5 py-1 text-sm font-medium text-red-700 hover:bg-zinc-50">Revogar</button>
+                <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-2.5 py-1 text-sm font-medium text-red-700 dark:text-red-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Revogar</button>
               </td>
             </tr>
 
-            <tr class="hover:bg-zinc-50 text-zinc-500">
+            <tr class="hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400">
               <td class="px-4 py-2.5">
                 <span class="block truncate font-medium" title="Ferramenta de importação (descontinuada)">Ferramenta de importação (descontinuada)</span>
-                <span class="mt-0.5 inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-500">
-                  <span class="size-1.5 rounded-full border border-zinc-400"></span>Revogado a 30 Jun 2026
+                <span class="mt-0.5 inline-flex items-center gap-1.5 rounded-full bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                  <span class="size-1.5 rounded-full border border-zinc-400 dark:border-zinc-600"></span>Revogado a 30 Jun 2026
                 </span>
               </td>
               <td class="px-4 py-2.5 font-mono line-through">qrm_…4d90</td>
@@ -354,7 +362,7 @@
         </table>
       </div>
 
-      <p class="text-xs text-zinc-500">
+      <p class="text-xs text-zinc-500 dark:text-zinc-400">
         Os tokens revogados continuam na lista para se perceber o que existiu. Pedidos feitos com eles devolvem 401.
       </p>
     </div>
@@ -362,21 +370,106 @@
 </div>
 
 <!-- ====================================================================
+     ESTADO 5 — CRIAR TOKEN (modal sobre a lista)
+     Um campo só: o nome. O token é gerado pelo sistema, nunca escolhido.
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 5 — CRIAR TOKEN · modal com um campo. À direita, o mesmo modal com o nome em falta.
+</div>
+
+<div class="grid gap-6 bg-zinc-200 dark:bg-zinc-950 p-6 lg:grid-cols-2">
+
+  <!-- componente: flux:modal. Sombra permitida: é elemento flutuante. -->
+  <div class="mx-auto w-full max-w-md rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-lg">
+    <h2 class="text-base font-semibold">Criar token de API</h2>
+    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+      Dê-lhe um nome que diga onde vai ser usado. É o que vai ver na lista quando
+      precisar de decidir qual revogar.
+    </p>
+
+    <form class="mt-5 grid gap-5">
+      <!-- componente: flux:input -->
+      <div class="grid gap-1.5">
+        <label for="token-nome" class="text-sm font-medium">Nome do token</label>
+        <input id="token-nome" type="text" placeholder="Integração com o catálogo — produção"
+               class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm placeholder:text-zinc-400 dark:placeholder:text-zinc-500 focus:border-brand-600 focus:outline-2 focus:outline-offset-1 focus:outline-brand-600">
+        <p class="text-xs text-zinc-500 dark:text-zinc-400">Só para si. Não vai dentro do token nem aparece em lado nenhum público.</p>
+      </div>
+
+      <!-- Faixa neutra: o sistema não tem fundos de cor -->
+      <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-3 py-2.5">
+        <p class="flex items-start gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-4 shrink-0 text-zinc-500 dark:text-zinc-400" aria-hidden="true">
+            <path d="M12 4 3 20h18L12 4Z"/><path d="M12 10v4M12 17h.01"/>
+          </svg>
+          <span>O token aparece uma única vez, logo a seguir a criar. Não fica guardado
+          em lado nenhum de onde se possa voltar a lê-lo — se o perder, cria outro.</span>
+        </p>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 border-t border-zinc-200 dark:border-zinc-800 pt-5">
+        <button type="button" class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Cancelar</button>
+        <button type="submit" class="rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">Criar token</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Mesmo modal, com o campo em erro -->
+  <div class="mx-auto w-full max-w-md rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-lg">
+    <h2 class="text-base font-semibold">Criar token de API</h2>
+    <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+      Dê-lhe um nome que diga onde vai ser usado. É o que vai ver na lista quando
+      precisar de decidir qual revogar.
+    </p>
+
+    <form class="mt-5 grid gap-5">
+      <div class="grid gap-1.5">
+        <label for="token-nome-erro" class="text-sm font-medium">Nome do token</label>
+        <input id="token-nome-erro" type="text" value="" aria-invalid="true" aria-describedby="erro-token-nome"
+               class="rounded-card border border-red-400 dark:border-red-700 bg-white dark:bg-zinc-900 px-3 py-2 text-sm focus:outline-2 focus:outline-offset-1 focus:outline-red-600">
+        <p id="erro-token-nome" class="flex items-start gap-1.5 text-xs text-red-700 dark:text-red-300">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5 shrink-0 mt-px" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
+          </svg>
+          Dê um nome ao token. Sem nome, daqui a seis meses não vai saber qual revogar.
+        </p>
+      </div>
+
+      <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-3 py-2.5">
+        <p class="flex items-start gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-4 shrink-0 text-zinc-500 dark:text-zinc-400" aria-hidden="true">
+            <path d="M12 4 3 20h18L12 4Z"/><path d="M12 10v4M12 17h.01"/>
+          </svg>
+          <span>O token aparece uma única vez, logo a seguir a criar. Não fica guardado
+          em lado nenhum de onde se possa voltar a lê-lo — se o perder, cria outro.</span>
+        </p>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 border-t border-zinc-200 dark:border-zinc-800 pt-5">
+        <button type="button" class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Cancelar</button>
+        <button type="submit" class="rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">Criar token</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<!-- ====================================================================
      COMPONENTES NOVOS QUE ESTE ECRÃ EXIGE (protocolo em docs/DESIGN.md)
      ==================================================================== -->
-<div class="border-t-4 border-zinc-900 bg-white px-6 py-5">
+<div class="border-t-4 border-zinc-900 bg-white dark:bg-zinc-900 px-6 py-5">
   <h2 class="text-sm font-semibold">Componentes novos que este ecrã exige</h2>
-  <ul class="mt-2 grid gap-1 text-sm text-zinc-600">
-    <li><span class="font-mono text-zinc-900">x-copy-field</span> — variante larga, com botão de copiar em destaque, para o token em claro. Issue #17.</li>
-    <li><span class="font-mono text-zinc-900">x-empty-state</span> — estado sem tokens. Issue #18.</li>
+  <ul class="mt-2 grid gap-1 text-sm text-zinc-600 dark:text-zinc-400">
+    <li><span class="font-mono text-zinc-900 dark:text-zinc-100">x-copy-field</span> — variante larga, com botão de copiar em destaque, para o token em claro. Issue #17.</li>
+    <li><span class="font-mono text-zinc-900 dark:text-zinc-100">x-empty-state</span> — estado sem tokens. Issue #18.</li>
   </ul>
-  <p class="mt-3 text-sm text-zinc-500">
+  <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
     Aproximações a Flux: <span class="font-mono">flux:table</span>, <span class="font-mono">flux:button</span>,
     <span class="font-mono">flux:badge</span>, <span class="font-mono">flux:callout</span>,
-    <span class="font-mono">flux:modal</span> (criar token, não desenhado aqui — é um campo só).
+    <span class="font-mono">flux:modal</span> (criar token, estado 5).
   </p>
-  <p class="mt-2 text-sm text-zinc-500">
-    Nada fora do sistema. O botão "Revogar" usa <span class="font-mono">text-red-700</span> sobre botão neutro:
+  <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+    Nada fora do sistema. O botão "Revogar" usa <span class="font-mono">text-red-700 dark:text-red-300</span> sobre botão neutro:
     cor como aviso da consequência, não como superfície.
   </p>
 </div>

@@ -31,6 +31,48 @@ Unidade base de espaçamento: **4px**
 
 ---
 
+## Modo escuro
+
+O produto tem os dois temas. O starter kit traz o alternador nas definições e o
+`app.css` tem o `@custom-variant dark`. **Todo o ecrã se desenha nos dois** — um
+ecrã só claro não está desenhado.
+
+Não é uma paleta nova: é a mesma, invertida por regra fixa. Decorar esta tabela
+poupa a decisão caso a caso, que é onde a incoerência entra.
+
+| Papel | Claro | Escuro |
+|---|---|---|
+| Fundo da página | `zinc-50` | `zinc-950` |
+| Superfície (cartão, cabeçalho, barra lateral) | `white` | `zinc-900` |
+| Superfície secundária (cabeçalho de tabela, faixa neutra) | `zinc-50` | `zinc-900` |
+| Preenchimento (skeleton, avatar, chip) | `zinc-100` / `zinc-200` | `zinc-800` |
+| Borda | `zinc-200` | `zinc-800` |
+| Borda de controlo (input, botão secundário) | `zinc-300` | `zinc-700` |
+| Borda apagada (ponto de estado inactivo) | `zinc-400` | `zinc-600` |
+| Interruptor desligado | `zinc-300` | `zinc-700` |
+| Chip de ícone em estado vazio | `brand-50` | `brand-900` |
+| Texto | `zinc-900` | `zinc-100` |
+| Texto secundário | `zinc-500` / `zinc-600` | `zinc-400` |
+| Texto apagado (zero, "nunca usado") | `zinc-400` | `zinc-500` |
+| Ação primária | `brand-600`, texto branco | `brand-600`, texto branco |
+| Ligação e ênfase | `brand-600` / `brand-700` | `brand-300` |
+| Erro: texto | `red-700` | `red-300` |
+| Erro: ícone e borda | `red-600` / `red-200` | `red-400` / `red-900` |
+
+Três regras que não se negoceiam:
+
+1. **O código QR mantém sempre fundo branco**, nos dois temas. Um QR sobre fundo
+   escuro pode não ser lido, e a moldura branca é a *quiet zone* — é função, não
+   estilo.
+2. **A ação primária não muda de cor.** `brand-600` com texto branco tem
+   contraste suficiente sobre `zinc-900`; trocar por um tom claro obrigaria a
+   trocar também a cor do texto, e passariam a existir dois botões primários
+   diferentes no mesmo produto.
+3. **Nada de `dark:` avulso.** Se um par claro/escuro não estiver nesta tabela,
+   acrescenta-se aqui primeiro.
+
+---
+
 ## Cores
 
 | Uso | Token | Quando |
@@ -73,9 +115,10 @@ Componentes próprios vivem em `resources/views/components/`. Previstos:
 **Criar componente novo exige justificação.** Se algo aparece em dois ecrãs, é
 componente. Se aparece num, é composição.
 
-**Excepção ao raio:** os badges de estado são `rounded-full`, não `--radius-card`.
-É a convenção do `flux:badge` e lutar contra ela dá mais custo do que valor.
-É a única excepção; tudo o resto usa o raio do sistema.
+**Excepção ao raio:** `rounded-full` só em três coisas — os badges de estado
+(convenção do `flux:badge`, e lutar contra ela custa mais do que vale), os pontos
+indicadores de estado, e o interruptor (`flux:switch`), cuja forma é o próprio
+significado. **Avatares e chips usam `rounded-card`**, como tudo o resto.
 
 ---
 
@@ -218,3 +261,6 @@ Alterações ao sistema ficam aqui, com data e razão.
 | 2026-08-15 | Sem fundos de cor: faixas de aviso são neutras (`zinc-50`, ícone `zinc-500`) | Saiu do mockup `detalhe-qr`, onde o aviso de código inactivo usava `amber-50`. Cor entra como ícone ou borda, não como superfície |
 | 2026-08-15 | Botão a trabalhar vs. desligado: `brand-600` sólido com spinner vs. `zinc-200`/`zinc-500`. Nunca marca com opacidade | Saiu da validação dos seis mockups, que tinham `brand-600/70` e `/40` — dois valores para a mesma ideia, e marca esbatida a significar duas coisas |
 | 2026-08-15 | Em estado vazio, a ação do cabeçalho passa a secundária | Duas primárias com o mesmo texto no mesmo ecrã (lista e tokens) é pedir a mesma decisão duas vezes |
+| 2026-08-15 | Modo escuro entra no sistema, com tabela fixa de pares claro/escuro; o QR mantém fundo branco e a ação primária não muda de cor | A aplicação sempre teve `.dark` e alternador; os seis ecrãs estavam desenhados só para claro. Regra fixa evita decidir caso a caso |
+| 2026-08-15 | `rounded-full` limitado a badges e pontos de estado; avatares passam a `rounded-card` | A excepção estava a alastrar a tudo o que era redondo |
+| 2026-08-15 | Página de erro do redirect sem assinatura de marca | É vista por quem não é cliente e não veio cá ter por vontade própria; o nome do produto não lhe resolve nada |
