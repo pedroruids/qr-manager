@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Rules\DestinoForaDoRedirect;
 use Database\Factories\QrCodeFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,13 +35,13 @@ class QrCode extends Model
     /**
      * Regras de validação partilhadas pela interface e pela API.
      *
-     * @return array<string, list<string>>
+     * @return array<string, list<string|DestinoForaDoRedirect>>
      */
     public static function regras(): array
     {
         return [
             'nome' => ['required', 'string', 'max:255'],
-            'destino' => ['required', 'string', 'max:2048', 'url:http,https'],
+            'destino' => ['required', 'string', 'max:2048', 'url:http,https', new DestinoForaDoRedirect],
             'activo' => ['boolean'],
         ];
     }
@@ -52,6 +53,46 @@ class QrCode extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * Apara o que vem de fora antes de validar.
+     *
+     * Um URL colado do browser traz espaços à volta com frequência, e sem isto
+     * a validação recusa-o com "falta o início do endereço" — uma mensagem que
+     * manda corrigir uma coisa que já está certa. O `TrimStrings` do HTTP não
+     * chega aqui: um pedido Livewire não passa por ele.
+     *
+     * @param  array<string, mixed>  $dados
+     * @return array<string, mixed>
+     */
+    public static function normalizar(array $dados): array
+    {
+        foreach (['nome', 'destino'] as $campo) {
+            if (is_string($dados[$campo] ?? null)) {
+                $dados[$campo] = trim($dados[$campo]);
+            }
+        }
+
+        return $dados;
+    }
+
+    /**
+     * As mensagens andam com as regras, e não com o formulário: a aplicação
+     * fala pt-PT, e a mensagem por omissão do Laravel — em inglês, a citar o
+     * nome da coluna — não é dirigida a quem está a preencher isto.
+     *
+     * @return array<string, string>
+     */
+    public static function mensagens(): array
+    {
+        return [
+            'nome.required' => 'Dê um nome ao código para o reconhecer na lista.',
+            'nome.max' => 'O nome não pode passar dos 255 caracteres.',
+            'destino.required' => 'Indique o endereço para onde este código leva.',
+            'destino.url' => 'Falta o início do endereço. Escreva https://loja.exemplo.pt/campanha, com o https:// à frente.',
+            'destino.max' => 'O endereço não pode passar dos 2048 caracteres.',
+        ];
     }
 
     protected static function booted(): void
