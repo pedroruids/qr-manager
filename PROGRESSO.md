@@ -31,18 +31,22 @@ Estado do arranque do projeto. Actualizar à medida que as fases fecham.
 
 ## Fase D — Sistema visual aplicado ⬜
 
-- Ajustar os componentes base ao sistema decidido em `docs/DESIGN.md`
-- Criar os componentes próprios previstos: `x-qr-preview`, `x-empty-state`,
-  `x-copy-field`
+Os componentes novos saíram dos mockups já desenhados, um issue cada:
+
+- `x-copy-field` — issue #17
+- `x-empty-state` — issue #18
+- `x-qr-preview` — issue #19
+- `x-bar-chart` — issue #20
 - Criar a página `/design` que mostra todos os componentes e estados num sítio só
 
 ## Fase E — Ecrãs ⬜
 
-Um de cada vez, com `/desenhar-ecra`, mockup em `docs/mockups/` antes de implementar:
+Um de cada vez, com mockup em `docs/mockups/` antes de implementar.
+O protocolo de entrega está em `docs/DESIGN.md`.
 
-1. `lista-qrs` — issue #6
-2. `criar-qr` — issue #7
-3. `detalhe-qr` — issues #9 e #11
+1. `lista-qrs` — issue #6 — **mockup feito**
+2. `criar-qr` — issue #7 — **mockup feito**
+3. `detalhe-qr` — issues #9 e #11 — **mockup feito**
 4. `editar-qr` — issue #10
 5. `tokens-api` — issue #12
 6. `erro-redirect` — issue #5
