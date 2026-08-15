@@ -110,3 +110,52 @@ gente. Mais difícil — cada leitura chega mesmo ao servidor; a contagem de
 leituras depende disso, portanto é uma consequência que também é requisito.
 
 ---
+
+## 2026-08-15 — Correcção de erros nível Q nos códigos QR
+
+**Contexto:** o nível de correcção de erros define quanto dano o código
+tolera — L ~7%, M ~15%, Q ~25%, H ~30% — e paga-se em módulos: mais correcção,
+código mais denso para o mesmo conteúdo.
+
+**Decisão:** **Q**, ~25%.
+
+**Porquê:** o que sai daqui vai para papel, e papel dobra-se, mancha-se, apanha
+chuva e é impresso por gráficas com registo mal alinhado. O conteúdo codificado
+é curto — um URL de domínio curto mais seis caracteres de slug — por isso Q
+mantém o código numa versão baixa e com módulos grandes, que é o que faz um
+leitor barato ler à primeira. H custaria mais densidade sem ganho prático a esta
+dimensão de conteúdo, e M já falha em códigos com uma dobra a meio.
+
+**Consequências:** o nível está fixado no `GeradorQrCode`, não numa opção de
+interface. Mudá-lo depois de haver material impresso não invalida nada
+— cada código continua a ler-se — mas passa a haver duas gerações de ficheiros
+com robustez diferente.
+
+---
+
+## 2026-08-15 — PNG desenhado em GD, não com o backend Imagick do bacon
+
+**Contexto:** o `bacon/bacon-qr-code` só traz três backends de imagem: SVG, EPS
+e Imagick. O PNG teria de vir do Imagick.
+
+**Decisão:** o SVG usa o backend do bacon; o PNG é desenhado módulo a módulo em
+GD, a partir da matriz que o `Encoder` devolve.
+
+**Porquê:** o Imagick é uma extensão nativa que não está instalada aqui nem no
+runner do CI, e obrigaria a instalá-la em todo o lado só para produzir uma
+grelha de quadrados pretos. O GD já é preciso de qualquer forma — é o que o
+descodificador dos testes usa para ler a imagem. O desenho directo dá ainda
+controlo sobre a coisa que mais importa num código impresso: cada módulo ocupa
+um número inteiro de pixéis, e o resto da divisão vai para a margem em vez de
+esticar os módulos. Meio pixel de módulo é uma aresta esbatida, e é aí que um
+leitor barato falha.
+
+**Consequências:** mais fácil — sem extensão nativa nova, e o PNG sai
+exactamente no tamanho pedido com módulos nítidos. Mais difícil — ~40 linhas de
+desenho nossas em vez de uma chamada a uma biblioteca, e qualquer variação
+futura (cores, molduras) tem de ser escrita à mão. O tecto do tamanho é 2048
+pixéis: em cor verdadeira a imagem ocupa 4 bytes por pixel enquanto é desenhada,
+e 4096² não cabiam nos 128 MB de `memory_limit` de uma instalação por omissão.
+A 300 dpi, 2048 são 17 cm de lado.
+
+---
