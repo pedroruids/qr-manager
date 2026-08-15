@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup — Página de erro do redirect</title>
+
+<link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<style type="text/tailwindcss">
+  /* Copiado de resources/css/app.css — os mesmos tokens que a aplicação usa. */
+  @theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-50:  #eef2ff;
+    --color-brand-100: #e0e7ff;
+    --color-brand-200: #c7d2fe;
+    --color-brand-300: #a5b4fc;
+    --color-brand-400: #818cf8;
+    --color-brand-500: #6366f1;
+    --color-brand-600: #4f46e5;
+    --color-brand-700: #4338ca;
+    --color-brand-800: #3730a3;
+    --color-brand-900: #312e81;
+
+    --radius-card: 0.5rem;
+
+    --color-zinc-50:  #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+  }
+</style>
+</head>
+
+<body class="bg-zinc-100 text-zinc-900 font-sans antialiased">
+
+<!-- ========================================================================
+     Issue #5. Página PÚBLICA e anónima: quem chega aqui apontou a câmara a um
+     flyer, está de telemóvel na mão, e nunca ouviu falar do qr-manager.
+
+     ⚠️ DESVIO AOS QUATRO ESTADOS, declarado de propósito:
+     esta página não mostra dados nenhuns — não tem estado "vazio" nem
+     "a carregar" no sentido do docs/DESIGN.md. Os quatro blocos abaixo são os
+     quatro estados que ESTA página realmente tem:
+
+       1. A página normal (404), em telemóvel — é o caso de 99% das visitas
+       2. Sem CSS — rede fraca ou folha bloqueada; tem de continuar legível
+       3. Falha do servidor (500) — página diferente, mensagem diferente
+       4. Ecrã grande e texto longo — onde o layout parte
+
+     Slug inexistente e slug inactivo mostram EXACTAMENTE a mesma página, com o
+     mesmo 404. Distingui-los revelaria que aquele endereço já existiu.
+     ===================================================================== -->
+
+<!-- ====================================================================
+     ESTADO 1 — A PÁGINA (404) EM TELEMÓVEL
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 1 — NORMAL · 404 em telemóvel (390 px). Slug inexistente e slug inactivo dão esta mesma página.
+</div>
+
+<div class="flex justify-center bg-zinc-200 py-8">
+  <!-- moldura só do mockup, para mostrar a largura de telemóvel -->
+  <div class="w-[390px] border-x border-zinc-300 bg-white">
+    <div class="flex min-h-[600px] flex-col items-center justify-center px-6 py-12 text-center">
+
+      <div class="grid place-items-center size-14 rounded-card bg-zinc-100 text-zinc-500">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-7" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/>
+        </svg>
+      </div>
+
+      <h1 class="mt-5 text-xl font-semibold">Este código já não está activo</h1>
+
+      <p class="mt-2 text-sm text-zinc-600">
+        Quem o publicou desactivou-o ou ainda não o ligou a nenhuma página.
+        Não há nada para ver aqui.
+      </p>
+
+      <p class="mt-6 text-sm text-zinc-500">
+        Se veio de um cartaz ou de um flyer, procure aí o endereço do site
+        ou o contacto de quem o publicou.
+      </p>
+
+      <p class="mt-10 text-xs text-zinc-400">
+        Códigos QR geridos com qr-manager
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================
+     ESTADO 2 — SEM CSS
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 2 — SEM CSS · rede fraca ou folha bloqueada. A ordem do HTML tem de bastar.
+</div>
+
+<div class="flex justify-center bg-zinc-200 py-8">
+  <div class="w-[390px] border-x border-zinc-300 bg-white p-6">
+    <!-- Sem uma única classe: é isto que chega ao ecrã se o CSS falhar.
+         Nenhuma informação depende de estilo, cor ou ícone. -->
+    <div style="all: initial; font-family: serif; display: block;">
+      <h1 style="all: unset; display: block; font-size: 1.5rem; font-weight: bold;">Este código já não está activo</h1>
+      <p style="all: unset; display: block; margin-top: 0.75rem;">
+        Quem o publicou desactivou-o ou ainda não o ligou a nenhuma página. Não há nada para ver aqui.
+      </p>
+      <p style="all: unset; display: block; margin-top: 0.75rem;">
+        Se veio de um cartaz ou de um flyer, procure aí o endereço do site ou o contacto de quem o publicou.
+      </p>
+      <p style="all: unset; display: block; margin-top: 1.5rem; font-size: 0.75rem;">Códigos QR geridos com qr-manager</p>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================
+     ESTADO 3 — FALHA DO SERVIDOR (500)
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 3 — ERRO DO SERVIDOR · 500: o código pode ser válido, mas não conseguimos resolvê-lo agora
+</div>
+
+<div class="flex justify-center bg-zinc-200 py-8">
+  <div class="w-[390px] border-x border-zinc-300 bg-white">
+    <div class="flex min-h-[600px] flex-col items-center justify-center px-6 py-12 text-center">
+
+      <div class="grid place-items-center size-14 rounded-card bg-zinc-100 text-zinc-500">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-7" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
+        </svg>
+      </div>
+
+      <h1 class="mt-5 text-xl font-semibold">Não conseguimos abrir este código</h1>
+
+      <p class="mt-2 text-sm text-zinc-600">
+        A falha é nossa, não do código. Tente daqui a um minuto — apontando outra vez a câmara,
+        ou recarregando esta página.
+      </p>
+
+      <!-- Sem JavaScript: um link normal, que funciona em qualquer telemóvel -->
+      <a href="#" class="mt-6 rounded-card bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
+        Tentar novamente
+      </a>
+
+      <p class="mt-10 text-xs text-zinc-400">
+        Códigos QR geridos com qr-manager
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================
+     ESTADO 4 — ECRÃ GRANDE E TEXTO LONGO
+     ==================================================================== -->
+<div class="bg-zinc-900 text-zinc-100 text-xs font-medium tracking-wide px-4 py-2">
+  ESTADO 4 — ECRÃ GRANDE · a mesma página aberta no computador, com o texto no comprimento máximo
+</div>
+
+<div class="bg-white">
+  <div class="flex min-h-[520px] flex-col items-center justify-center px-6 py-16 text-center">
+    <!-- Largura de leitura travada: sem isto, num ecrã de 1600 px a linha fica
+         com 200 caracteres e ninguém a lê. -->
+    <div class="max-w-md">
+      <div class="mx-auto grid place-items-center size-14 rounded-card bg-zinc-100 text-zinc-500">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-7" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/>
+        </svg>
+      </div>
+
+      <h1 class="mt-5 text-2xl font-semibold">Este código já não está activo</h1>
+
+      <p class="mt-3 text-sm text-zinc-600">
+        Quem o publicou desactivou-o ou ainda não o ligou a nenhuma página.
+        Não há nada para ver aqui, e não conseguimos dizer-lhe para onde este
+        código apontava antes.
+      </p>
+
+      <p class="mt-6 text-sm text-zinc-500">
+        Se veio de um cartaz, de um flyer, de uma embalagem ou de um rótulo,
+        procure aí o endereço do site ou o contacto de quem o publicou —
+        é por aí que vai encontrar o que procurava.
+      </p>
+
+      <p class="mt-12 text-xs text-zinc-400">Códigos QR geridos com qr-manager</p>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================================
+     COMPONENTES NOVOS QUE ESTE ECRÃ EXIGE (protocolo em docs/DESIGN.md)
+     ==================================================================== -->
+<div class="border-t-4 border-zinc-900 bg-white px-6 py-5">
+  <h2 class="text-sm font-semibold">Componentes novos que este ecrã exige</h2>
+  <p class="mt-2 text-sm text-zinc-600">Nenhum.</p>
+  <p class="mt-3 text-sm text-zinc-500">
+    Não usa Flux nem o layout da aplicação: é uma página pública, sem sessão, sem navegação
+    e sem JavaScript. Vive isolada em <span class="font-mono">resources/views/errors/</span>.
+  </p>
+  <ul class="mt-3 grid gap-1 text-sm text-zinc-600">
+    <li><span class="font-medium text-zinc-900">Decisão a confirmar:</span> a assinatura "Códigos QR geridos com qr-manager" no rodapé. Dá contexto a quem não percebe onde caiu — e é a única presença de marca numa página vista por gente que não é cliente. Tirar é defensável.</li>
+    <li><span class="font-medium text-zinc-900">Desvio declarado:</span> os quatro blocos não são vazio/carregar/erro/cheio — esta página não mostra dados. São normal, sem CSS, 500 e ecrã grande.</li>
+  </ul>
+</div>
+
+</body>
+</html>
