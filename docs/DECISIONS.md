@@ -222,4 +222,10 @@ por aí que "revogado" passa a significar mesmo 401.
 O prefixo `qrm_` entra no token em claro: serve para o reconhecer à vista e para
 os varredores de segredos o apanharem num repositório público.
 
+O token entregue ao utilizador vai **sem o `{id}|`** que o Sanctum põe à cabeça,
+como o mockup o desenha. O `findToken` do Sanctum reconhece as duas formas, e
+sem o id procura pelo hash — que é coluna única, portanto continua a ser uma
+busca por índice. O que se ganha é não entregar ruído a quem vai colar aquilo
+numa ferramenta, e não haver a tentação de cortar o prefixo à mão.
+
 ---

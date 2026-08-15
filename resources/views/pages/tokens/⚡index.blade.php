@@ -32,12 +32,14 @@ new #[Title('Tokens de API')] class extends Component
 
     public function criar(): void
     {
+        $this->nome = trim($this->nome);
+
         $this->validate(
             ['nome' => ['required', 'string', 'max:255']],
-            ['nome.required' => 'Dê um nome ao token para saber depois onde o pôs.']
+            ['nome.required' => 'Dê um nome ao token. Sem nome, daqui a seis meses não vai saber qual revogar.']
         );
 
-        $novo = auth()->user()->createToken(trim($this->nome));
+        $novo = auth()->user()->createToken($this->nome);
 
         // Os últimos caracteres do token em claro, para o utilizador o
         // reconhecer na lista. É a última vez que o temos em mãos.
@@ -45,7 +47,10 @@ new #[Title('Tokens de API')] class extends Component
             'ultimos_caracteres' => mb_substr($novo->plainTextToken, -4),
         ])->save();
 
-        $this->tokenEmClaro = $novo->plainTextToken;
+        // Sem o "{id}|" que o Sanctum põe à cabeça. O que se entrega a quem vai
+        // colar isto numa ferramenta é o segredo e mais nada — e o Sanctum
+        // continua a reconhecê-lo, pelo hash, que é coluna única.
+        $this->tokenEmClaro = str($novo->plainTextToken)->after('|')->value();
         $this->nome = '';
 
         unset($this->tokens);
