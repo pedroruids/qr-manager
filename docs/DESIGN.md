@@ -106,11 +106,18 @@ A base vem do **Flux UI 2** — `flux:button`, `flux:input`, `flux:select`,
 `flux:badge`, `flux:table`, `flux:modal`, `flux:callout`. **Usa-se o Flux
 primeiro**; só se cria componente próprio quando o Flux não cobre o caso.
 
-Componentes próprios vivem em `resources/views/components/`. Previstos:
+Componentes próprios vivem em `resources/views/components/`. Existem:
 
-- `x-qr-preview` — o código renderizado, com moldura e fundo branco
-- `x-empty-state` — ícone, título, descrição, ação
-- `x-copy-field` — valor mono com botão de copiar (slug, token)
+- `x-qr-preview` — o código renderizado, com moldura e fundo branco. Recebe um
+  `QrCode` e pede o SVG ao `GeradorQrCode`; é componente de classe por isso
+- `x-empty-state` — título, descrição, slot `icone` e slot `acao` opcionais.
+  `compacto` para dentro de um cartão, e `valor` quando o vazio é uma contagem
+  a zero
+- `x-copy-field` — valor mono com botão de copiar (slug, token). `texto` mostra
+  uma versão curta; o que vai para a área de transferência é sempre o `valor`
+  completo
+
+Previsto e ainda por construir: `x-bar-chart` (leituras por dia).
 
 **Criar componente novo exige justificação.** Se algo aparece em dois ecrãs, é
 componente. Se aparece num, é composição.
