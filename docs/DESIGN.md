@@ -109,6 +109,87 @@ Um ecrã sem estado vazio definido não está desenhado.
 
 ---
 
+
+## Protocolo de entrega do design
+
+Os ecrãs são desenhados **numa sessão de design separada** (conversa com
+artifacts, onde se vê o resultado a render) e entregues aqui como ficheiro.
+O sistema visual — tokens e componentes — **não** se desenha lá: fixa-se neste
+projeto primeiro, e só depois se desenham ecrãs dentro dele.
+
+Motivo da separação: desenhar onde se vê fecha o ciclo de iteração em segundos;
+e uma sessão que já tem a implementação na cabeça desenha para o que é fácil de
+construir, não para o que é bom.
+
+### O que levar para a sessão de design
+
+Sem isto, a sessão inventa o sistema em vez de o seguir — e o resultado só se
+nota ao décimo ecrã, quando corrigir já é refazer.
+
+1. Este ficheiro, `docs/DESIGN.md`, inteiro
+2. O bloco `@theme` de `resources/css/app.css`, à letra
+3. A lista de componentes que já existem em `resources/views/components/`
+4. O issue do ecrã, com os critérios de aceitação
+
+A skill `/preparar-design <ecra>` monta este briefing pronto a colar.
+
+### O que trazer de volta
+
+Um **HTML autónomo**, não uma imagem nem uma descrição. É isto que preserva a
+propriedade que torna o método bom: o artefacto de design já é código, e não há
+tradução a perder-se entre o desenhado e o implementado.
+
+- Ficheiro único, guardado em `docs/mockups/<ecra>.html` e commitado
+- Tailwind 4 via `<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>`
+- O bloco `@theme` **copiado à letra** do `app.css` — não uma aproximação
+- **Os quatro estados** no mesmo ficheiro, separados por cabeçalho: vazio, a
+  carregar, erro, cheio
+- Dados de exemplo plausíveis. Nunca "Lorem ipsum" nem "Teste 1" — dados falsos
+  irrealistas escondem os problemas de layout que só aparecem com conteúdo real
+- Uma lista explícita de **componentes novos que o ecrã exige**
+
+Essa última lista é a que se perde sempre e a que mais custa depois. Um ecrã que
+precisa de um `x-qr-preview` que ainda não existe não é um trabalho, são dois.
+Cada componente novo vira issue com a label `área: design`.
+
+### O Flux não existe no mockup
+
+O Flux UI 2 renderiza através de Blade. Numa página HTML solta não há
+`flux:button`. O mockup **aproxima** o Flux com HTML e Tailwind; a implementação
+troca a aproximação pelo componente real.
+
+Por isso o mockup deve marcar, em comentário HTML, o que cada bloco vai ser:
+
+```html
+<!-- flux:button variant=primary -->
+<button class="rounded-[--radius-card] bg-brand-600 px-3 py-1.5 text-sm font-medium text-white">
+  Criar QR
+</button>
+```
+
+| No mockup | Na implementação |
+|---|---|
+| `<button>` estilizado | `flux:button` |
+| `<input>` com label e hint | `flux:input` |
+| `<table>` | `flux:table` |
+| `<span>` arredondado | `flux:badge` |
+| Caixa de aviso | `flux:callout` |
+| QR, estado vazio, campo copiável | `x-qr-preview`, `x-empty-state`, `x-copy-field` |
+
+Sem estas marcas, quem implementa reconstrói a decisão a partir do aspeto — e é
+aí que o implementado começa a afastar-se do desenhado.
+
+### Validação, antes de implementar
+
+`/validar-design <ecra>` confere o mockup recebido contra este ficheiro:
+tokens fora do sistema, componentes que não existem, estados em falta, regras de
+composição quebradas. Só depois de passar é que o ecrã entra em implementação.
+
+O mockup aprovado é a referência — **não é o componente final.** A
+implementação em Blade faz-se a sério, com os componentes reais.
+
+---
+
 ## Registo de alterações
 
 Alterações ao sistema ficam aqui, com data e razão.
@@ -119,3 +200,4 @@ Alterações ao sistema ficam aqui, com data e razão.
 | 2026-08-15 | Cores de estado passam a cobrir estado de dados (activo/inactivo), com rótulo em texto obrigatório | Saiu do mockup `lista-qrs`: sem isto o estado de um QR ficava indistinguível na tabela |
 | 2026-08-15 | Zero escreve-se `0` em `zinc-400` | Distinguir "ainda sem leituras" de erro sem inventar um símbolo |
 | 2026-08-15 | Badges de estado em `rounded-full`, única excepção ao raio do sistema | Convenção do `flux:badge`; contrariá-la custa mais do que vale |
+| 2026-08-15 | Ecrãs passam a ser desenhados em sessão separada, entregues como HTML com os quatro estados e a lista de componentes novos | Ver o ecrã a render fecha o ciclo de iteração; a entrega em código evita reintroduzir handoff |
