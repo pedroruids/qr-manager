@@ -10,6 +10,8 @@
 
 <style type="text/tailwindcss">
   /* Copiado de resources/css/app.css — os mesmos tokens que a aplicação usa. */
+  @custom-variant dark (&:where(.dark, .dark *));
+
   @theme {
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
@@ -45,7 +47,13 @@
 </style>
 </head>
 
-<body class="bg-zinc-50 text-zinc-900 font-sans antialiased">
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 font-sans antialiased">
+
+<!-- Andaime do mockup, não faz parte do ecrã: alterna claro/escuro -->
+<button onclick="document.documentElement.classList.toggle('dark')"
+        class="fixed top-3 right-3 z-50 rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300">
+  Alternar tema
+</button>
 
 <!-- ========================================================================
      Issue #10. As barras escuras "ESTADO N" não fazem parte do ecrã.
@@ -63,34 +71,34 @@
 </div>
 
 <div class="flex min-h-[620px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium text-zinc-900">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 hover:bg-zinc-50">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 hover:bg-zinc-50">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium text-zinc-900 dark:text-zinc-100">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800">Definições</a>
     </nav>
-    <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
-      <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
+    <div class="mt-auto border-t border-zinc-200 dark:border-zinc-800 p-3 flex items-center gap-2">
+      <span class="grid place-items-center size-7 rounded-card bg-zinc-200 dark:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300">PR</span>
+      <span class="text-sm text-zinc-600 dark:text-zinc-400 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
-      <a href="#" class="text-zinc-500 hover:text-zinc-900">Códigos QR</a>
-      <span class="text-zinc-300" aria-hidden="true">/</span>
-      <a href="#" class="truncate text-zinc-500 hover:text-zinc-900" title="Flyer Setembro — regresso às aulas">Flyer Setembro — regresso às aulas</a>
-      <span class="text-zinc-300" aria-hidden="true">/</span>
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm">
+      <a href="#" class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">Códigos QR</a>
+      <span class="text-zinc-300 dark:text-zinc-600" aria-hidden="true">/</span>
+      <a href="#" class="truncate text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100" title="Flyer Setembro — regresso às aulas">Flyer Setembro — regresso às aulas</a>
+      <span class="text-zinc-300 dark:text-zinc-600" aria-hidden="true">/</span>
       <span class="font-semibold">Editar</span>
     </header>
 
     <div class="p-6">
       <div class="max-w-xl">
-        <div class="rounded-card border border-zinc-200 bg-white p-6">
+        <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
           <h1 class="text-base font-semibold">Editar código QR</h1>
 
           <form class="mt-6 grid gap-5">
@@ -98,48 +106,48 @@
                  porque um input desactivado sugere que algures pode ser activado. -->
             <div class="grid gap-1.5">
               <span class="text-sm font-medium">Endereço do código</span>
-              <div class="flex items-center gap-2 rounded-card border border-zinc-200 bg-zinc-50 px-3 py-2">
-                <span class="truncate font-mono text-sm text-zinc-700" title="qr.exemplo.pt/abc123">qr.exemplo.pt/abc123</span>
+              <div class="flex items-center gap-2 rounded-card border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-3 py-2">
+                <span class="truncate font-mono text-sm text-zinc-700 dark:text-zinc-300" title="qr.exemplo.pt/abc123">qr.exemplo.pt/abc123</span>
                 <!-- componente novo: x-copy-field (issue #17) -->
-                <button type="button" aria-label="Copiar o endereço do código" class="ml-auto rounded-card p-1 text-zinc-400 hover:bg-zinc-200 hover:text-zinc-700">
+                <button type="button" aria-label="Copiar o endereço do código" class="ml-auto rounded-card p-1 text-zinc-400 dark:text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:text-zinc-700 dark:hover:text-zinc-300">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                     <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                   </svg>
                 </button>
               </div>
-              <p class="text-xs text-zinc-500">Não pode ser alterado. Há material impresso a apontar para este endereço.</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Não pode ser alterado. Há material impresso a apontar para este endereço.</p>
             </div>
 
             <!-- componente: flux:input -->
             <div class="grid gap-1.5">
               <label for="nome-1" class="text-sm font-medium">Nome</label>
               <input id="nome-1" type="text" value="Flyer Setembro — regresso às aulas"
-                     class="rounded-card border border-zinc-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-2 focus:outline-offset-1 focus:outline-brand-600">
+                     class="rounded-card border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-sm focus:border-brand-600 focus:outline-2 focus:outline-offset-1 focus:outline-brand-600">
             </div>
 
             <div class="grid gap-1.5">
               <label for="destino-1" class="text-sm font-medium">URL de destino</label>
               <input id="destino-1" type="url" value="https://loja.exemplo.pt/campanhas/setembro-2026"
-                     class="rounded-card border border-zinc-300 px-3 py-2 text-sm focus:border-brand-600 focus:outline-2 focus:outline-offset-1 focus:outline-brand-600">
-              <p class="text-xs text-zinc-500">Altera para onde as pessoas são levadas. Vale para todos os códigos já impressos, a partir do momento em que gravar.</p>
+                     class="rounded-card border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-sm focus:border-brand-600 focus:outline-2 focus:outline-offset-1 focus:outline-brand-600">
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Altera para onde as pessoas são levadas. Vale para todos os códigos já impressos, a partir do momento em que gravar.</p>
             </div>
 
             <!-- componente: flux:switch -->
-            <div class="flex items-start justify-between gap-4 rounded-card border border-zinc-200 p-3">
+            <div class="flex items-start justify-between gap-4 rounded-card border border-zinc-200 dark:border-zinc-800 p-3">
               <div>
                 <span class="text-sm font-medium">Código activo</span>
-                <p class="mt-0.5 text-xs text-zinc-500">Desactivar faz com que quem leia o código veja uma página a dizer que já não está disponível.</p>
+                <p class="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">Desactivar faz com que quem leia o código veja uma página a dizer que já não está disponível.</p>
               </div>
               <button type="button" role="switch" aria-checked="true" aria-label="Código activo"
                       class="mt-0.5 relative h-5 w-9 shrink-0 rounded-full bg-brand-600">
-                <span class="absolute top-0.5 right-0.5 size-4 rounded-full bg-white"></span>
+                <span class="absolute top-0.5 right-0.5 size-4 rounded-full bg-white dark:bg-zinc-900"></span>
               </button>
             </div>
 
-            <div class="flex items-center justify-end gap-2 border-t border-zinc-200 pt-5">
-              <button type="button" class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Cancelar</button>
+            <div class="flex items-center justify-end gap-2 border-t border-zinc-200 dark:border-zinc-800 pt-5">
+              <button type="button" class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Cancelar</button>
               <!-- Sem alterações, gravar não faz nada — e diz que não faz -->
-              <button type="submit" disabled class="rounded-card bg-zinc-200 px-3 py-1.5 text-sm font-medium text-zinc-500">Guardar alterações</button>
+              <button type="submit" disabled class="rounded-card bg-zinc-200 dark:bg-zinc-800 px-3 py-1.5 text-sm font-medium text-zinc-500 dark:text-zinc-400">Guardar alterações</button>
             </div>
           </form>
         </div>
@@ -156,46 +164,46 @@
 </div>
 
 <div class="flex min-h-[520px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Definições</a>
     </nav>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
-      <a href="#" class="text-zinc-500">Códigos QR</a>
-      <span class="text-zinc-300" aria-hidden="true">/</span>
-      <span class="h-3.5 w-44 rounded-card bg-zinc-200 animate-pulse"></span>
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm">
+      <a href="#" class="text-zinc-500 dark:text-zinc-400">Códigos QR</a>
+      <span class="text-zinc-300 dark:text-zinc-600" aria-hidden="true">/</span>
+      <span class="h-3.5 w-44 rounded-card bg-zinc-200 dark:bg-zinc-800 animate-pulse"></span>
     </header>
 
     <div class="p-6">
       <div class="max-w-xl">
-        <div class="rounded-card border border-zinc-200 bg-white p-6 animate-pulse">
-          <div class="h-4 w-40 rounded-card bg-zinc-200"></div>
+        <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 animate-pulse">
+          <div class="h-4 w-40 rounded-card bg-zinc-200 dark:bg-zinc-800"></div>
           <div class="mt-6 grid gap-5">
             <div class="grid gap-1.5">
-              <div class="h-3.5 w-32 rounded-card bg-zinc-200"></div>
-              <div class="h-9 w-full rounded-card bg-zinc-100"></div>
+              <div class="h-3.5 w-32 rounded-card bg-zinc-200 dark:bg-zinc-800"></div>
+              <div class="h-9 w-full rounded-card bg-zinc-100 dark:bg-zinc-800"></div>
             </div>
             <div class="grid gap-1.5">
-              <div class="h-3.5 w-16 rounded-card bg-zinc-200"></div>
-              <div class="h-9 w-full rounded-card bg-zinc-100"></div>
+              <div class="h-3.5 w-16 rounded-card bg-zinc-200 dark:bg-zinc-800"></div>
+              <div class="h-9 w-full rounded-card bg-zinc-100 dark:bg-zinc-800"></div>
             </div>
             <div class="grid gap-1.5">
-              <div class="h-3.5 w-28 rounded-card bg-zinc-200"></div>
-              <div class="h-9 w-full rounded-card bg-zinc-100"></div>
+              <div class="h-3.5 w-28 rounded-card bg-zinc-200 dark:bg-zinc-800"></div>
+              <div class="h-9 w-full rounded-card bg-zinc-100 dark:bg-zinc-800"></div>
             </div>
-            <div class="h-16 w-full rounded-card bg-zinc-100"></div>
-            <div class="flex justify-end gap-2 border-t border-zinc-200 pt-5">
-              <div class="h-8 w-24 rounded-card bg-zinc-200"></div>
-              <div class="h-8 w-36 rounded-card bg-zinc-200"></div>
+            <div class="h-16 w-full rounded-card bg-zinc-100 dark:bg-zinc-800"></div>
+            <div class="flex justify-end gap-2 border-t border-zinc-200 dark:border-zinc-800 pt-5">
+              <div class="h-8 w-24 rounded-card bg-zinc-200 dark:bg-zinc-800"></div>
+              <div class="h-8 w-36 rounded-card bg-zinc-200 dark:bg-zinc-800"></div>
             </div>
           </div>
         </div>
@@ -213,24 +221,24 @@
 </div>
 
 <div class="flex min-h-[660px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Definições</a>
     </nav>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
-      <a href="#" class="text-zinc-500 hover:text-zinc-900">Códigos QR</a>
-      <span class="text-zinc-300" aria-hidden="true">/</span>
-      <a href="#" class="truncate text-zinc-500 hover:text-zinc-900" title="Flyer Setembro — regresso às aulas">Flyer Setembro — regresso às aulas</a>
-      <span class="text-zinc-300" aria-hidden="true">/</span>
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm">
+      <a href="#" class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">Códigos QR</a>
+      <span class="text-zinc-300 dark:text-zinc-600" aria-hidden="true">/</span>
+      <a href="#" class="truncate text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100" title="Flyer Setembro — regresso às aulas">Flyer Setembro — regresso às aulas</a>
+      <span class="text-zinc-300 dark:text-zinc-600" aria-hidden="true">/</span>
       <span class="font-semibold">Editar</span>
     </header>
 
@@ -239,48 +247,48 @@
 
         <!-- componente: flux:callout variant=danger. Conflito: alguém (ou a API)
              mexeu no mesmo QR enquanto este formulário estava aberto. -->
-        <div class="mb-4 rounded-card border border-red-200 bg-white p-3">
+        <div class="mb-4 rounded-card border border-red-200 dark:border-red-900 bg-white dark:bg-zinc-900 p-3">
           <div class="flex gap-2.5">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-5 shrink-0 text-red-600" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-5 shrink-0 text-red-600 dark:text-red-400" aria-hidden="true">
               <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
             </svg>
             <div>
-              <p class="text-sm text-zinc-700">
-                <span class="font-medium text-zinc-900">Este código foi alterado noutro sítio enquanto tinha o formulário aberto.</span>
+              <p class="text-sm text-zinc-700 dark:text-zinc-300">
+                <span class="font-medium text-zinc-900 dark:text-zinc-100">Este código foi alterado noutro sítio enquanto tinha o formulário aberto.</span>
                 O destino actual passou a <span class="font-mono">loja.exemplo.pt/outono</span>, alterado pela API há 4 minutos.
                 Gravar por cima substitui essa alteração.
               </p>
               <div class="mt-2.5 flex flex-wrap items-center gap-2">
-                <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Ver o valor actual</button>
-                <button class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Descartar o que escrevi</button>
+                <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Ver o valor actual</button>
+                <button class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Descartar o que escrevi</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="rounded-card border border-zinc-200 bg-white p-6">
+        <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
           <h1 class="text-base font-semibold">Editar código QR</h1>
 
           <form class="mt-6 grid gap-5">
             <div class="grid gap-1.5">
               <span class="text-sm font-medium">Endereço do código</span>
-              <div class="flex items-center gap-2 rounded-card border border-zinc-200 bg-zinc-50 px-3 py-2">
-                <span class="truncate font-mono text-sm text-zinc-700" title="qr.exemplo.pt/abc123">qr.exemplo.pt/abc123</span>
+              <div class="flex items-center gap-2 rounded-card border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-3 py-2">
+                <span class="truncate font-mono text-sm text-zinc-700 dark:text-zinc-300" title="qr.exemplo.pt/abc123">qr.exemplo.pt/abc123</span>
               </div>
-              <p class="text-xs text-zinc-500">Não pode ser alterado. Há material impresso a apontar para este endereço.</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Não pode ser alterado. Há material impresso a apontar para este endereço.</p>
             </div>
 
             <div class="grid gap-1.5">
               <label for="nome-3" class="text-sm font-medium">Nome</label>
               <input id="nome-3" type="text" value="Flyer Setembro — regresso às aulas"
-                     class="rounded-card border border-zinc-300 px-3 py-2 text-sm">
+                     class="rounded-card border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-sm">
             </div>
 
             <div class="grid gap-1.5">
               <label for="destino-3" class="text-sm font-medium">URL de destino</label>
               <input id="destino-3" type="text" value="https://" aria-invalid="true" aria-describedby="erro-destino-3"
-                     class="rounded-card border border-red-400 px-3 py-2 text-sm focus:outline-2 focus:outline-offset-1 focus:outline-red-600">
-              <p id="erro-destino-3" class="flex items-start gap-1.5 text-xs text-red-700">
+                     class="rounded-card border border-red-400 dark:border-red-700 px-3 py-2 text-sm focus:outline-2 focus:outline-offset-1 focus:outline-red-600">
+              <p id="erro-destino-3" class="flex items-start gap-1.5 text-xs text-red-700 dark:text-red-300">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="size-3.5 shrink-0 mt-px" aria-hidden="true">
                   <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
                 </svg>
@@ -288,19 +296,19 @@
               </p>
             </div>
 
-            <div class="flex items-start justify-between gap-4 rounded-card border border-zinc-200 p-3">
+            <div class="flex items-start justify-between gap-4 rounded-card border border-zinc-200 dark:border-zinc-800 p-3">
               <div>
                 <span class="text-sm font-medium">Código activo</span>
-                <p class="mt-0.5 text-xs text-zinc-500">Desactivar faz com que quem leia o código veja uma página a dizer que já não está disponível.</p>
+                <p class="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">Desactivar faz com que quem leia o código veja uma página a dizer que já não está disponível.</p>
               </div>
               <button type="button" role="switch" aria-checked="true" aria-label="Código activo"
                       class="mt-0.5 relative h-5 w-9 shrink-0 rounded-full bg-brand-600">
-                <span class="absolute top-0.5 right-0.5 size-4 rounded-full bg-white"></span>
+                <span class="absolute top-0.5 right-0.5 size-4 rounded-full bg-white dark:bg-zinc-900"></span>
               </button>
             </div>
 
-            <div class="flex items-center justify-end gap-2 border-t border-zinc-200 pt-5">
-              <button type="button" class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Cancelar</button>
+            <div class="flex items-center justify-end gap-2 border-t border-zinc-200 dark:border-zinc-800 pt-5">
+              <button type="button" class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Cancelar</button>
               <button type="submit" class="rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">Guardar alterações</button>
             </div>
           </form>
@@ -318,85 +326,85 @@
 </div>
 
 <div class="flex min-h-[720px]">
-  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 bg-white">
-    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200">
+  <aside class="hidden md:flex w-60 shrink-0 flex-col border-r border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+    <div class="flex items-center gap-2 px-4 h-14 border-b border-zinc-200 dark:border-zinc-800">
       <span class="grid place-items-center size-7 bg-brand-600 text-white text-xs font-semibold rounded-card">QR</span>
       <span class="text-sm font-semibold">qr-manager</span>
     </div>
     <nav class="flex flex-col gap-0.5 p-2 text-sm">
-      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 font-medium">Códigos QR</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Tokens de API</a>
-      <a href="#" class="rounded-card px-3 py-2 text-zinc-600">Definições</a>
+      <a href="#" class="rounded-card px-3 py-2 bg-zinc-100 dark:bg-zinc-800 font-medium">Códigos QR</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Tokens de API</a>
+      <a href="#" class="rounded-card px-3 py-2 text-zinc-600 dark:text-zinc-400">Definições</a>
     </nav>
-    <div class="mt-auto border-t border-zinc-200 p-3 flex items-center gap-2">
-      <span class="grid place-items-center size-7 rounded-full bg-zinc-200 text-xs font-medium text-zinc-700">PR</span>
-      <span class="text-sm text-zinc-600 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
+    <div class="mt-auto border-t border-zinc-200 dark:border-zinc-800 p-3 flex items-center gap-2">
+      <span class="grid place-items-center size-7 rounded-card bg-zinc-200 dark:bg-zinc-800 text-xs font-medium text-zinc-700 dark:text-zinc-300">PR</span>
+      <span class="text-sm text-zinc-600 dark:text-zinc-400 truncate" title="Pedro Ruivo">Pedro Ruivo</span>
     </div>
   </aside>
 
   <main class="flex-1 min-w-0">
-    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 bg-white text-sm">
-      <a href="#" class="text-zinc-500 hover:text-zinc-900">Códigos QR</a>
-      <span class="text-zinc-300" aria-hidden="true">/</span>
-      <a href="#" class="truncate text-zinc-500 hover:text-zinc-900" title="Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)">Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)</a>
-      <span class="text-zinc-300" aria-hidden="true">/</span>
+    <header class="flex items-center gap-2 px-6 h-14 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm">
+      <a href="#" class="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">Códigos QR</a>
+      <span class="text-zinc-300 dark:text-zinc-600" aria-hidden="true">/</span>
+      <a href="#" class="truncate text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100" title="Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)">Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente)</a>
+      <span class="text-zinc-300 dark:text-zinc-600" aria-hidden="true">/</span>
       <span class="font-semibold shrink-0">Editar</span>
     </header>
 
     <div class="p-6">
       <div class="max-w-xl">
-        <div class="rounded-card border border-zinc-200 bg-white p-6">
+        <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
           <h1 class="text-base font-semibold">Editar código QR</h1>
 
           <form class="mt-6 grid gap-5">
             <div class="grid gap-1.5">
               <span class="text-sm font-medium">Endereço do código</span>
-              <div class="flex items-center gap-2 rounded-card border border-zinc-200 bg-zinc-50 px-3 py-2">
-                <span class="truncate font-mono text-sm text-zinc-700" title="qr.exemplo.pt/k7m2qp">qr.exemplo.pt/k7m2qp</span>
-                <button type="button" aria-label="Copiar o endereço do código" class="ml-auto rounded-card p-1 text-zinc-400 hover:bg-zinc-200 hover:text-zinc-700">
+              <div class="flex items-center gap-2 rounded-card border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-3 py-2">
+                <span class="truncate font-mono text-sm text-zinc-700 dark:text-zinc-300" title="qr.exemplo.pt/k7m2qp">qr.exemplo.pt/k7m2qp</span>
+                <button type="button" aria-label="Copiar o endereço do código" class="ml-auto rounded-card p-1 text-zinc-400 dark:text-zinc-500 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:text-zinc-700 dark:hover:text-zinc-300">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5" aria-hidden="true">
                     <rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/>
                   </svg>
                 </button>
               </div>
-              <p class="text-xs text-zinc-500">Não pode ser alterado. Há material impresso a apontar para este endereço.</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Não pode ser alterado. Há material impresso a apontar para este endereço.</p>
             </div>
 
             <div class="grid gap-1.5">
               <label for="nome-4" class="text-sm font-medium">Nome</label>
               <input id="nome-4" type="text" value="Cartaz A2 — Feira do Livro de Lisboa 2026 (entrada poente, junto às bilheteiras)"
-                     class="rounded-card border border-zinc-300 px-3 py-2 text-sm">
+                     class="rounded-card border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-sm">
             </div>
 
             <div class="grid gap-1.5">
               <label for="destino-4" class="text-sm font-medium">URL de destino</label>
               <input id="destino-4" type="url"
                      value="https://loja.exemplo.pt/eventos/feira-do-livro-2026?utm_source=cartaz&utm_medium=qr&utm_campaign=feira-livro&utm_content=entrada-poente"
-                     class="rounded-card border border-zinc-300 px-3 py-2 text-sm">
+                     class="rounded-card border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-sm">
               <!-- Alteração por gravar: dito em texto, não só por cor de campo -->
-              <p class="flex items-start gap-1.5 text-xs text-zinc-600">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5 shrink-0 mt-px text-zinc-500" aria-hidden="true">
+              <p class="flex items-start gap-1.5 text-xs text-zinc-600 dark:text-zinc-400">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-3.5 shrink-0 mt-px text-zinc-500 dark:text-zinc-400" aria-hidden="true">
                   <path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
                 </svg>
                 Alterado. Antes: <span class="font-mono">loja.exemplo.pt/eventos/feira-do-livro</span>
               </p>
             </div>
 
-            <div class="flex items-start justify-between gap-4 rounded-card border border-zinc-200 p-3">
+            <div class="flex items-start justify-between gap-4 rounded-card border border-zinc-200 dark:border-zinc-800 p-3">
               <div>
                 <span class="text-sm font-medium">Código activo</span>
-                <p class="mt-0.5 text-xs text-zinc-500">Desactivar faz com que quem leia o código veja uma página a dizer que já não está disponível.</p>
+                <p class="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">Desactivar faz com que quem leia o código veja uma página a dizer que já não está disponível.</p>
               </div>
               <button type="button" role="switch" aria-checked="false" aria-label="Código activo"
-                      class="mt-0.5 relative h-5 w-9 shrink-0 rounded-full bg-zinc-300">
-                <span class="absolute top-0.5 left-0.5 size-4 rounded-full bg-white"></span>
+                      class="mt-0.5 relative h-5 w-9 shrink-0 rounded-full bg-zinc-300 dark:bg-zinc-700">
+                <span class="absolute top-0.5 left-0.5 size-4 rounded-full bg-white dark:bg-zinc-900"></span>
               </button>
             </div>
 
             <!-- Faixa neutra: o sistema não tem fundos de cor (docs/DESIGN.md) -->
-            <div class="rounded-card border border-zinc-200 bg-zinc-50 px-3 py-2.5">
-              <p class="flex items-start gap-2 text-xs text-zinc-700">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-4 shrink-0 text-zinc-500" aria-hidden="true">
+            <div class="rounded-card border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-3 py-2.5">
+              <p class="flex items-start gap-2 text-xs text-zinc-700 dark:text-zinc-300">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-4 shrink-0 text-zinc-500 dark:text-zinc-400" aria-hidden="true">
                   <path d="M12 4 3 20h18L12 4Z"/><path d="M12 10v4M12 17h.01"/>
                 </svg>
                 <span>Vai desactivar um código com <span class="font-medium">12 847 leituras</span>, a última há 9 dias.
@@ -404,10 +412,10 @@
               </p>
             </div>
 
-            <div class="flex items-center justify-between gap-2 border-t border-zinc-200 pt-5">
-              <p class="text-xs text-zinc-500">2 alterações por gravar</p>
+            <div class="flex items-center justify-between gap-2 border-t border-zinc-200 dark:border-zinc-800 pt-5">
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">2 alterações por gravar</p>
               <div class="flex items-center gap-2">
-                <button type="button" class="rounded-card border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50">Cancelar</button>
+                <button type="button" class="rounded-card border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800">Cancelar</button>
                 <button type="submit" class="rounded-card bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">Guardar alterações</button>
               </div>
             </div>
@@ -421,18 +429,18 @@
 <!-- ====================================================================
      COMPONENTES NOVOS QUE ESTE ECRÃ EXIGE (protocolo em docs/DESIGN.md)
      ==================================================================== -->
-<div class="border-t-4 border-zinc-900 bg-white px-6 py-5">
+<div class="border-t-4 border-zinc-900 bg-white dark:bg-zinc-900 px-6 py-5">
   <h2 class="text-sm font-semibold">Componentes novos que este ecrã exige</h2>
-  <ul class="mt-2 grid gap-1 text-sm text-zinc-600">
-    <li><span class="font-mono text-zinc-900">x-copy-field</span> — variante em leitura apenas, para o endereço do código. Issue #17.</li>
+  <ul class="mt-2 grid gap-1 text-sm text-zinc-600 dark:text-zinc-400">
+    <li><span class="font-mono text-zinc-900 dark:text-zinc-100">x-copy-field</span> — variante em leitura apenas, para o endereço do código. Issue #17.</li>
   </ul>
-  <p class="mt-3 text-sm text-zinc-500">
+  <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
     Aproximações a Flux: <span class="font-mono">flux:input</span>, <span class="font-mono">flux:switch</span>,
     <span class="font-mono">flux:button</span>, <span class="font-mono">flux:callout</span>,
     <span class="font-mono">flux:breadcrumbs</span>.
   </p>
-  <p class="mt-2 text-sm text-zinc-500">
-    Nada fora do sistema. Botão de gravar sem alterações: <span class="font-mono">bg-zinc-200</span> com texto
+  <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+    Nada fora do sistema. Botão de gravar sem alterações: <span class="font-mono">bg-zinc-200 dark:bg-zinc-800</span> com texto
     <span class="font-mono">zinc-500</span> — desligado lê-se como neutro, não como marca esbatida.
     Regra registada em <span class="font-mono">docs/DESIGN.md</span>.
   </p>
