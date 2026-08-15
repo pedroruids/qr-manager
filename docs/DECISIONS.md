@@ -64,3 +64,49 @@ sem consentimento. Mais difícil — se um dia se quiser país, é migração no
 uma conversa de privacidade.
 
 ---
+
+## 2026-08-15 — O redirect público vive fora do grupo `web`
+
+**Contexto:** a rota `GET /{slug}` responde a um anónimo que apontou a câmara a
+um papel. Registada em `routes/web.php`, levava o grupo `web`: sessão, cookie de
+sessão, token CSRF e `ShareErrorsFromSession` — trabalho e estado por request
+para responder um cabeçalho `Location`.
+
+**Decisão:** ficheiro próprio `routes/publico.php`, registado sem middleware
+nenhum no `then` do `bootstrap/app.php`, portanto depois de todas as outras
+rotas.
+
+**Porquê:** duas razões que se reforçam. Não abrir sessão poupa I/O no único
+pedido do produto que tem de ser rápido, e evita pôr um cookie a quem nunca
+pediu nada. E o `{slug}` é um apanha-tudo: registado antes das rotas da
+aplicação, engolia `/login`, `/dashboard` e `/settings/*`. O `then` corre depois
+da rota do Fortify e das da aplicação, o que resolve a ordem sem uma lista de
+excepções a manter.
+
+**Consequências:** mais fácil — a rota não tem estado, e qualquer cache HTTP à
+frente pode vê-la sem cookies pelo meio. Mais difícil — nada que precise de
+sessão pode entrar neste ficheiro, e quem lá acrescentar rotas tem de se lembrar
+que o apanha-tudo é o último. Alternativa descartada: `withoutMiddleware()` na
+rota, que deixava o apanha-tudo no meio do `web.php` e o problema de ordem por
+resolver.
+
+---
+
+## 2026-08-15 — 302 no redirect, nunca 301
+
+**Contexto:** o redirect podia ser permanente (301) e poupar pedidos ao
+servidor, já que o slug nunca muda.
+
+**Decisão:** 302.
+
+**Porquê:** o slug é imutável, o **destino** não é — é a razão de ser do
+produto. Um 301 fica em cache no browser e nos intermediários por tempo
+indefinido: quem lesse o código antes de o destino mudar continuaria a ir para o
+sítio antigo, sem forma de o corrigir. Trocar o destino deixaria de ter efeito
+para as pessoas que mais importam, as que já leram o flyer.
+
+**Consequências:** mais fácil — mudar o destino tem efeito imediato para toda a
+gente. Mais difícil — cada leitura chega mesmo ao servidor; a contagem de
+leituras depende disso, portanto é uma consequência que também é requisito.
+
+---
