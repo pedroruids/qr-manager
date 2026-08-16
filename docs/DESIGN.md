@@ -221,6 +221,42 @@ Essa última lista é a que se perde sempre e a que mais custa depois. Um ecrã 
 precisa de um `x-qr-preview` que ainda não existe não é um trabalho, são dois.
 Cada componente novo vira issue com a label `área: design`.
 
+### O mockup é HTML morto — o que não pode existir
+
+"Autónomo" descreve o resultado e não chega como instrução: uma sessão de design
+que construa um componente com estado e propriedades editáveis faz algo melhor
+*para ver*, e continua a poder chamar-lhe autónomo. Dizer o que **não** pode
+existir é o que evita isso:
+
+- **Sem propriedades editáveis e sem estado.** Nada de props, selectores ou
+  alternadores. Os estados aparecem todos ao mesmo tempo, empilhados.
+- **Sem ciclos e sem interpolações** — `{{ }}`, `<sc-for>`, `<sc-if>` ou
+  equivalente. As repetições escrevem-se à mão, linha a linha. Sete linhas em vez
+  de um ciclo de sete: mais verboso de propósito, porque o ficheiro passa a dizer
+  o que se vê.
+- **Nada gerado em execução.** Um código QR desenhado por JavaScript não é um
+  código QR: é ruído com a forma de um, e ninguém dá por isso até apontar a
+  câmara.
+- **Com o JavaScript desligado, o ficheiro mostra tudo.** É este o teste. Um
+  alternador de tema em três linhas é a única excepção tolerada, e mesmo essa é
+  enfeite.
+
+**Pedir o ficheiro em bloco de código, nunca pelo botão de descarregar.** O botão
+guarda *a página que se viu*, não o código que a fez: as plataformas de artifacts
+reembrulham o conteúdo com o runtime necessário para o mostrar, e o que chega ao
+disco é um invólucro com o documento verdadeiro escondido lá dentro.
+
+Verificação, antes de o ficheiro entrar em `docs/mockups/`:
+
+```bash
+grep -c "{{\|<sc-\|__bundler\|DCLogic" docs/mockups/<ecra>.html
+```
+
+Zero. Qualquer outro número quer dizer que veio template, e não vale a pena
+olhar mais: não abre, não se valida contra este ficheiro, e não se implementa
+sem alguém executar os ciclos de cabeça — que é exactamente o handoff que este
+método existe para eliminar.
+
 ### O Flux não existe no mockup
 
 O Flux UI 2 renderiza através de Blade. Numa página HTML solta não há
